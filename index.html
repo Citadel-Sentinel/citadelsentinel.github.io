@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citadel Sentinel — Enterprise Infrastructure & RightFax Specialists | GTA</title>
+<meta name="description" content="Specialized infrastructure consulting for organizations where downtime is not an option. RightFax migrations, Azure infrastructure, cybersecurity. Greater Toronto Area.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#05111f;--ink-2:#091929;--ink-3:#0e2337;--ink-4:#163350;
+  --steel:#7a97b0;--steel-2:#a8bfcf;--ice:#d6e8f5;
+  --signal:#22d3ee;--signal-dim:rgba(34,211,238,0.12);--signal-glow:rgba(34,211,238,0.25);
+  --alert:#ef4444;--alert-dim:rgba(239,68,68,0.1);
+  --white:#f0f6fc;--white-70:rgba(240,246,252,0.7);--white-30:rgba(240,246,252,0.3);--white-10:rgba(240,246,252,0.06);
+  --border:rgba(34,211,238,0.15);--border-2:rgba(168,191,207,0.12);--radius:2px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--white);overflow-x:hidden;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:0.4}
+
+/* CURSOR */
+.cursor{position:fixed;width:6px;height:6px;background:var(--signal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen}
+.cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--signal);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.15s ease;opacity:0.4}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:0 clamp(1.5rem,5vw,4rem);height:68px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,17,31,0);transition:background 0.4s,border-color 0.4s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(5,17,31,0.97);border-color:var(--border-2);backdrop-filter:blur(20px)}
+.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+.nav-logomark{width:34px;height:34px}
+.nav-wordmark{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;letter-spacing:0.12em;color:var(--white);text-transform:uppercase;line-height:1}
+.nav-wordmark span{color:var(--signal)}
+.nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--steel-2);text-decoration:none;transition:color 0.2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--signal);transition:width 0.3s}
+.nav-links a:hover{color:var(--white)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:10px 22px;border-radius:var(--radius);background:transparent;border:1px solid var(--signal);color:var(--signal) !important;text-decoration:none;transition:all 0.25s}
+.nav-cta:hover{background:var(--signal);color:var(--ink) !important}
+.nav-cta::after{display:none !important}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--white)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:120px clamp(1.5rem,5vw,4rem) 80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 100% 50%,rgba(34,211,238,0.04) 0%,transparent 60%),linear-gradient(170deg,var(--ink-2) 0%,var(--ink) 100%)}
+.hero-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(34,211,238,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,0.03) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 70% 70% at 80% 50%,black 0%,transparent 70%)}
+.hero-scan{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--signal),transparent);animation:scan 6s linear infinite;opacity:0.3}
+@keyframes scan{0%{top:0}100%{top:100%}}
+.hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 420px;gap:5rem;align-items:center}
+.hero-tag{display:inline-flex;align-items:center;gap:10px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--signal);margin-bottom:2rem;padding:6px 14px;border:1px solid var(--border);border-radius:20px;background:var(--signal-dim)}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--signal);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.hero-h1{font-family:'Syne',sans-serif;font-size:clamp(3rem,6vw,5.2rem);font-weight:800;line-height:0.95;letter-spacing:-0.02em;text-transform:uppercase;margin-bottom:2rem}
+.hero-h1 .line{display:block;overflow:hidden}
+.hero-h1 .line span{display:block;transform:translateY(100%);animation:slideUp 0.8s cubic-bezier(0.16,1,0.3,1) forwards}
+.hero-h1 .line:nth-child(1) span{animation-delay:0.1s}
+.hero-h1 .line:nth-child(2) span{animation-delay:0.2s}
+.hero-h1 .line:nth-child(3) span{animation-delay:0.3s}
+.accent{color:var(--signal)}
+@keyframes slideUp{to{transform:translateY(0)}}
+.hero-sub{font-size:17px;font-weight:300;color:var(--white-70);line-height:1.75;max-width:520px;margin-bottom:3rem;animation:fadeIn 1s 0.5s both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeIn 1s 0.6s both}
+.btn{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;padding:15px 30px;border-radius:var(--radius);transition:all 0.25s;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer}
+.btn-signal{background:var(--signal);color:var(--ink)}
+.btn-signal:hover{background:#67e8f9;transform:translateY(-2px);box-shadow:0 8px 30px rgba(34,211,238,0.25)}
+.btn-ghost{background:transparent;color:var(--white);border:1px solid var(--border-2)}
+.btn-ghost:hover{border-color:var(--signal);color:var(--signal)}
+.btn-arrow{font-size:14px;transition:transform 0.2s}
+.btn-signal:hover .btn-arrow{transform:translateX(3px)}
+.hero-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-2);border:1px solid var(--border-2);border-radius:4px;overflow:hidden;margin-top:3.5rem;animation:fadeIn 1s 0.7s both}
+.metric{background:var(--ink-2);padding:1.4rem 1rem;text-align:center}
+.metric-val{font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;color:var(--signal);line-height:1;margin-bottom:5px;letter-spacing:-0.02em}
+.metric-label{font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--steel)}
+
+/* HERO PANEL */
+.hero-panel{background:var(--ink-2);border:1px solid var(--border-2);border-radius:6px;overflow:hidden;animation:fadeIn 1s 0.4s both;box-shadow:0 40px 80px rgba(0,0,0,0.4),0 0 0 1px var(--border)}
+.panel-header{background:var(--ink-3);padding:14px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border-2)}
+.panel-dots{display:flex;gap:6px}
+.panel-dot{width:10px;height:10px;border-radius:50%}
+.panel-dot:nth-child(1){background:#ef4444}
+.panel-dot:nth-child(2){background:#f59e0b}
+.panel-dot:nth-child(3){background:#22c55e}
+.panel-title{font-family:'DM Mono',monospace;font-size:11px;color:var(--steel);letter-spacing:0.08em;margin-left:6px}
+.panel-body{padding:1.5rem}
+.panel-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border-2)}
+.panel-row:last-child{border-bottom:none;padding-bottom:0}
+.panel-status{width:8px;height:8px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.status-ok{background:#22c55e;box-shadow:0 0 6px #22c55e}
+.status-warn{background:#f59e0b;box-shadow:0 0 6px #f59e0b}
+.status-alert{background:#ef4444;box-shadow:0 0 6px #ef4444;animation:blink 1s infinite}
+.panel-row-label{font-family:'DM Mono',monospace;font-size:11px;color:var(--signal);letter-spacing:0.06em}
+.panel-row-val{font-size:13px;color:var(--white-70);margin-top:2px;font-weight:300}
+.panel-footer{background:var(--ink-3);padding:12px 18px;border-top:1px solid var(--border-2);display:flex;align-items:center;gap:8px}
+.panel-footer-text{font-family:'DM Mono',monospace;font-size:11px;color:var(--signal)}
+.panel-blink{animation:blink 1s infinite}
+
+/* ALERT STRIP */
+.alert-strip{background:linear-gradient(90deg,var(--alert-dim),rgba(239,68,68,0.06),var(--alert-dim));border-top:1px solid rgba(239,68,68,0.25);border-bottom:1px solid rgba(239,68,68,0.25);padding:13px clamp(1.5rem,5vw,4rem)}
+.alert-inner{display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;max-width:1200px;margin:0 auto}
+.alert-badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--alert);display:flex;align-items:center;gap:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);padding:4px 12px;border-radius:2px}
+.alert-text{font-size:13px;color:var(--white-70)}
+.alert-link{color:var(--signal);font-weight:500;text-decoration:none;font-size:13px;border-bottom:1px solid transparent;transition:border-color 0.2s}
+.alert-link:hover{border-color:var(--signal)}
+
+/* SECTIONS */
+section{padding:clamp(5rem,10vw,8rem) clamp(1.5rem,5vw,4rem)}
+.inner{max-width:1200px;margin:0 auto}
+.eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--signal);display:flex;align-items:center;gap:12px;margin-bottom:1rem}
+.eyebrow::before{content:'';width:24px;height:1px;background:var(--signal)}
+.section-h{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;line-height:1.05;margin-bottom:1.2rem}
+.section-h em{font-style:normal;color:var(--signal)}
+.section-p{font-size:16px;font-weight:300;color:var(--white-70);line-height:1.8;max-width:580px}
+
+/* ABOUT */
+#about{background:var(--ink-2);border-top:1px solid var(--border-2);border-bottom:1px solid var(--border-2)}
+.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;margin-top:4rem}
+.about-body p{font-size:16px;font-weight:300;color:var(--white-70);line-height:1.85;margin-bottom:1.3rem}
+.about-body p strong{color:var(--white);font-weight:500}
+.about-body p em{font-style:normal;color:var(--signal)}
+.cred-board{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border-2);border:1px solid var(--border-2);border-radius:4px;overflow:hidden}
+.cred-cell{background:var(--ink);padding:1.6rem 1.4rem;transition:background 0.2s}
+.cred-cell:hover{background:var(--ink-3)}
+.cred-val{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--signal);line-height:1;margin-bottom:6px;letter-spacing:-0.02em}
+.cred-lbl{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--steel);line-height:1.4}
+
+/* SERVICES */
+#services{background:var(--ink)}
+.services-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;flex-wrap:wrap;gap:1.5rem}
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border-2);border:1px solid var(--border-2);border-radius:4px;overflow:hidden}
+.svc{background:var(--ink-2);padding:2.8rem;position:relative;overflow:hidden;transition:background 0.3s}
+.svc::before{content:'';position:absolute;top:0;left:0;width:0;height:3px;background:var(--signal);transition:width 0.4s cubic-bezier(0.16,1,0.3,1)}
+.svc:hover{background:var(--ink-3)}
+.svc:hover::before{width:100%}
+.svc-num{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--steel);margin-bottom:1.5rem}
+.svc-icon{margin-bottom:1.2rem}
+.svc-name{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.4rem}
+.svc-sub{font-size:12px;color:var(--signal);font-weight:500;margin-bottom:1.2rem;letter-spacing:0.04em;font-style:italic}
+.svc-list{list-style:none;margin-bottom:1.8rem}
+.svc-list li{font-size:13.5px;font-weight:300;color:var(--white-70);padding:5px 0 5px 16px;position:relative;line-height:1.5;border-bottom:1px solid var(--border-2)}
+.svc-list li:last-child{border-bottom:none}
+.svc-list li::before{content:'';position:absolute;left:0;top:13px;width:7px;height:1px;background:var(--signal)}
+.svc-model{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--steel);padding-top:1rem;border-top:1px solid var(--border-2)}
+
+/* CASE STUDIES */
+#cases{background:var(--ink-2);border-top:1px solid var(--border-2);border-bottom:1px solid var(--border-2)}
+.cases-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3.5rem}
+.case{background:var(--ink);border:1px solid var(--border-2);border-radius:4px;overflow:hidden;transition:border-color 0.3s,transform 0.3s}
+.case:hover{border-color:var(--signal);transform:translateY(-3px)}
+.case-header{background:var(--ink-3);padding:1.8rem 2rem;border-bottom:1px solid var(--border-2);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.case-type{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--signal);background:var(--signal-dim);border:1px solid var(--border);padding:4px 10px;border-radius:2px;white-space:nowrap}
+.case-client{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:0.3rem}
+.case-scope{font-size:13px;font-weight:300;color:var(--steel-2)}
+.case-body{padding:2rem}
+.case-desc{font-size:14px;font-weight:300;color:var(--white-70);line-height:1.75;margin-bottom:1.5rem}
+.case-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-2);border:1px solid var(--border-2);border-radius:3px;overflow:hidden;margin-bottom:1.5rem}
+.case-stat{background:var(--ink-2);padding:1rem;text-align:center}
+.case-stat-val{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:var(--signal);line-height:1;margin-bottom:3px}
+.case-stat-lbl{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--steel)}
+.case-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--steel-2);background:var(--ink-3);border:1px solid var(--border-2);padding:4px 10px;border-radius:2px}
+
+/* EMERGENCY */
+#emergency{background:var(--ink)}
+.emg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.2);border-radius:4px;overflow:hidden;margin-top:3rem}
+.emg-card{background:var(--ink-2);padding:1.8rem;transition:background 0.2s}
+.emg-card:hover{background:rgba(239,68,68,0.05)}
+.emg-icon{font-size:20px;margin-bottom:0.8rem}
+.emg-title{font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem}
+.emg-desc{font-size:13px;font-weight:300;color:var(--white-70);line-height:1.6}
+.emg-cta{margin-top:2.5rem;background:var(--ink-2);border:1px solid rgba(239,68,68,0.25);border-radius:4px;padding:2.5rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.emg-cta-h{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;text-transform:uppercase;letter-spacing:0.02em;margin-bottom:0.4rem}
+.emg-cta-p{font-size:14px;font-weight:300;color:var(--white-70)}
+
+/* PROCESS */
+#process{background:var(--ink-2);border-top:1px solid var(--border-2);border-bottom:1px solid var(--border-2)}
+.process-track{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:4rem;position:relative}
+.process-track::after{content:'';position:absolute;top:27px;left:12.5%;right:12.5%;height:1px;background:var(--border);z-index:0}
+.process-step{text-align:center;padding:0 1.5rem;position:relative;z-index:1}
+.step-bubble{width:54px;height:54px;border-radius:50%;background:var(--ink-3);border:1px solid var(--border-2);display:flex;align-items:center;justify-content:center;margin:0 auto 1.3rem;font-family:'DM Mono',monospace;font-size:1rem;font-weight:500;color:var(--signal);transition:all 0.3s}
+.process-step:hover .step-bubble{background:var(--signal);color:var(--ink);border-color:var(--signal);box-shadow:0 0 20px var(--signal-glow)}
+.step-title{font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.6rem}
+.step-desc{font-size:13px;font-weight:300;color:var(--white-70);line-height:1.65}
+
+/* WHY */
+#why{background:var(--ink)}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-2);border:1px solid var(--border-2);border-radius:4px;overflow:hidden;margin-top:3.5rem}
+.why-cell{background:var(--ink-2);padding:2.2rem;transition:background 0.25s}
+.why-cell:hover{background:var(--ink-3)}
+.why-n{font-family:'Syne',sans-serif;font-size:3.5rem;font-weight:800;color:var(--border-2);line-height:1;margin-bottom:1rem;letter-spacing:-0.04em}
+.why-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.6rem}
+.why-desc{font-size:14px;font-weight:300;color:var(--white-70);line-height:1.7}
+
+/* CONTACT */
+#contact{background:var(--ink-2);border-top:1px solid var(--border-2)}
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:6rem;margin-top:4rem;align-items:start}
+.contact-lede p{font-size:15px;font-weight:300;color:var(--white-70);line-height:1.85;margin-bottom:1.5rem}
+.contact-lede strong{color:var(--white);font-weight:500}
+.contact-details{margin-top:2rem;display:flex;flex-direction:column;gap:1rem}
+.contact-item{display:flex;align-items:center;gap:14px}
+.contact-icon{width:38px;height:38px;border-radius:var(--radius);background:var(--signal-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.contact-text{font-size:14px;color:var(--white-70)}
+.contact-text a{color:var(--signal);text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.2s}
+.contact-text a:hover{border-color:var(--signal)}
+.free-box{margin-top:2.5rem;padding:1.5rem;background:var(--signal-dim);border:1px solid var(--border);border-radius:4px}
+.free-box-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--signal);margin-bottom:0.5rem}
+.free-box-text{font-size:13px;font-weight:300;color:var(--white-70);line-height:1.7}
+.form-card{background:var(--ink);border:1px solid var(--border-2);border-radius:4px;padding:2.8rem}
+.form-group{margin-bottom:1.2rem}
+.form-label{display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--steel);margin-bottom:8px}
+.form-input,.form-select,.form-textarea{width:100%;background:var(--ink-2);border:1px solid var(--border-2);border-radius:var(--radius);padding:12px 16px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--signal)}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--steel)}
+.form-select{cursor:pointer;appearance:none}
+.form-select option{background:var(--ink-2)}
+.form-textarea{resize:vertical;min-height:120px;line-height:1.6}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-submit{width:100%;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;background:var(--signal);color:var(--ink);padding:15px;border:none;border-radius:var(--radius);cursor:pointer;margin-top:0.5rem;transition:background 0.2s,transform 0.15s}
+.form-submit:hover{background:#67e8f9;transform:translateY(-1px)}
+.form-note{font-size:12px;color:var(--steel);text-align:center;margin-top:0.8rem;font-weight:300}
+
+/* FOOTER */
+footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem clamp(1.5rem,5vw,4rem) 2rem}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:4rem;margin-bottom:3rem;padding-bottom:3rem;border-bottom:1px solid var(--border-2)}
+.footer-brand-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem}
+.footer-brand-name span{color:var(--signal)}
+.footer-desc{font-size:13px;font-weight:300;color:var(--steel);line-height:1.75;max-width:320px}
+.footer-col-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--signal);margin-bottom:1.2rem}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:0.6rem}
+.footer-links a{font-size:13px;font-weight:300;color:var(--steel);text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:var(--white)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-copy,.footer-loc{font-size:12px;color:var(--steel);font-weight:300}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .hero-inner{grid-template-columns:1fr;gap:3rem}
+  .hero-panel{display:none}
+  .about-layout{grid-template-columns:1fr;gap:3rem}
+  .services-grid{grid-template-columns:1fr}
+  .cases-grid{grid-template-columns:1fr}
+  .emg-grid{grid-template-columns:1fr 1fr}
+  .process-track{grid-template-columns:1fr 1fr;gap:2.5rem}
+  .process-track::after{display:none}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .contact-layout{grid-template-columns:1fr;gap:3rem}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+}
+@media(max-width:600px){
+  .emg-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+  .process-track{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .hero-metrics{grid-template-columns:1fr}
+  .cred-board{grid-template-columns:1fr 1fr}
+  .case-stats{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <svg class="nav-logomark" viewBox="0 0 34 34" fill="none">
+      <circle cx="17" cy="17" r="16.5" stroke="#22d3ee" stroke-width="0.5" opacity="0.5"/>
+      <rect x="13" y="15" width="8" height="11" rx="1" fill="#22d3ee" opacity="0.85"/>
+      <rect x="15" y="11" width="4" height="5" rx="0.5" fill="#22d3ee" opacity="0.6"/>
+      <circle cx="17" cy="10" r="1.8" fill="none" stroke="#22d3ee" stroke-width="0.8"/>
+      <circle cx="17" cy="10" r="4" fill="none" stroke="#22d3ee" stroke-width="0.5" opacity="0.4"/>
+      <circle cx="17" cy="10" r="6.5" fill="none" stroke="#22d3ee" stroke-width="0.4" opacity="0.2"/>
+    </svg>
+    <div class="nav-wordmark">Citadel <span>Sentinel</span></div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#cases">Case Studies</a></li>
+    <li><a href="#emergency">Emergency</a></li>
+    <li><a href="#contact" class="nav-cta">Free Consultation</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-scan"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag"><span class="hero-tag-dot"></span>Greater Toronto Area &amp; Canada</div>
+      <h1 class="hero-h1">
+        <span class="line"><span>Enterprise</span></span>
+        <span class="line"><span>Infrastructure</span></span>
+        <span class="line"><span><em class="accent">Specialists.</em></span></span>
+      </h1>
+      <p class="hero-sub">When critical systems fail, organizations need someone who understands the full infrastructure stack — not a helpdesk ticket. We stabilize what others can't diagnose, specializing in OpenText RightFax, Azure infrastructure, and enterprise system reliability.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-signal">Free Consultation <span class="btn-arrow">→</span></a>
+        <a href="#services" class="btn btn-ghost">Our Services</a>
+      </div>
+      <div class="hero-metrics">
+        <div class="metric"><div class="metric-val">CCNP</div><div class="metric-label">Cisco Certified</div></div>
+        <div class="metric"><div class="metric-val">25+</div><div class="metric-label">RightFax Deployments</div></div>
+        <div class="metric"><div class="metric-val">99%</div><div class="metric-label">Client Satisfaction</div></div>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="panel-header">
+        <div class="panel-dots"><div class="panel-dot"></div><div class="panel-dot"></div><div class="panel-dot"></div></div>
+        <span class="panel-title">system_status.monitor</span>
+      </div>
+      <div class="panel-body">
+        <div class="panel-row">
+          <div class="panel-status status-alert"></div>
+          <div><div class="panel-row-label">RIGHTFAX_SERVICE</div><div class="panel-row-val">Queue backed up — 847 jobs pending. SIP trunk unresponsive.</div></div>
+        </div>
+        <div class="panel-row">
+          <div class="panel-status status-warn"></div>
+          <div><div class="panel-row-label">AD_AUTHENTICATION</div><div class="panel-row-val">Intermittent login failures. Kerberos ticket delays detected.</div></div>
+        </div>
+        <div class="panel-row">
+          <div class="panel-status status-warn"></div>
+          <div><div class="panel-row-label">AZURE_CONNECTIVITY</div><div class="panel-row-val">Hybrid sync degraded. On-prem latency elevated.</div></div>
+        </div>
+        <div class="panel-row">
+          <div class="panel-status status-ok"></div>
+          <div><div class="panel-row-label">CITADEL_SENTINEL</div><div class="panel-row-val">Engaged. Root cause identified. Remediation in progress.</div></div>
+        </div>
+      </div>
+      <div class="panel-footer"><div class="panel-footer-text">// This is what we solve every day <span class="panel-blink">█</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ALERT STRIP -->
+<div class="alert-strip">
+  <div class="alert-inner">
+    <div class="alert-badge"><div style="width:6px;height:6px;border-radius:50%;background:#ef4444;animation:blink 1s infinite"></div>Emergency Support</div>
+    <span class="alert-text">Dealing with a RightFax outage, failed migration, or critical system failure?</span>
+    <a href="#contact" class="alert-link">Contact us now →</a>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="inner">
+    <p class="eyebrow">About</p>
+    <h2 class="section-h">We solve what others<br>can't <em>diagnose</em></h2>
+    <div class="about-layout">
+      <div class="about-body reveal">
+        <p>Citadel Sentinel IT &amp; Cybersecurity Solutions Inc. is a <strong>specialized infrastructure consulting firm</strong> based in Milton, Ontario, serving organizations across the Greater Toronto Area and Canada.</p>
+        <p>We help IT leaders and operations teams resolve <strong>infrastructure instability, critical system failures, and outages</strong> that impact business continuity, compliance, and service delivery. Our clients operate in high-stakes environments — healthcare, financial services, and regulated industries — where systems must perform reliably.</p>
+        <p>Founded by <strong>Saboor Ali</strong>, a CCNP-certified DevOps Engineer with deep enterprise IT experience spanning professional services, infrastructure security, and critical communications systems. Citadel Sentinel operates as a lean, expert-led consultancy. <em>No layers of management. No junior technicians.</em> Direct access to senior expertise on every engagement.</p>
+        <p>We work on a project, hourly, or managed retainer basis — structured around your operational needs and timeline, with emergency slots available when systems go down.</p>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="cred-board">
+          <div class="cred-cell"><div class="cred-val">SME</div><div class="cred-lbl">RightFax Subject Matter Expert</div></div>
+          <div class="cred-cell"><div class="cred-val">CCNP</div><div class="cred-lbl">Cisco Certified Network Professional</div></div>
+          <div class="cred-cell"><div class="cred-val">25+</div><div class="cred-lbl">RightFax Deployments</div></div>
+          <div class="cred-cell"><div class="cred-val">SOC 2</div><div class="cred-lbl">Aligned Environments</div></div>
+          <div class="cred-cell"><div class="cred-val">95%</div><div class="cred-lbl">SLA Compliance Rate</div></div>
+          <div class="cred-cell"><div class="cred-val">HIPAA</div><div class="cred-lbl">PHIPA Compliance Experience</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="inner">
+    <div class="services-top">
+      <div><p class="eyebrow">Services</p><h2 class="section-h">What we <em>do</em></h2></div>
+      <p class="section-p" style="margin-bottom:0">Every engagement is scoped, executed, and validated by a senior engineer — not handed off to a helpdesk.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc reveal">
+        <div class="svc-num">01 / RIGHTFAX</div>
+        <svg class="svc-icon" width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="8" width="28" height="20" rx="2" stroke="#22d3ee" stroke-width="1.2"/><rect x="10" y="12" width="8" height="7" rx="1" fill="#22d3ee" opacity="0.25"/><line x1="22" y1="14" x2="30" y2="14" stroke="#22d3ee" stroke-width="1"/><line x1="22" y1="17" x2="30" y2="17" stroke="#22d3ee" stroke-width="1" opacity="0.5"/><line x1="22" y1="20" x2="26" y2="20" stroke="#22d3ee" stroke-width="1" opacity="0.3"/><path d="M16 28 L16 34 M12 34 L28 34" stroke="#22d3ee" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <div class="svc-name">RightFax &amp; Enterprise Fax Systems</div>
+        <div class="svc-sub">Purpose-built OpenText RightFax expertise for enterprise &amp; healthcare</div>
+        <ul class="svc-list">
+          <li>Transmission failures, queue delays, and routing issues</li>
+          <li>Server maintenance, upgrades, and full configuration</li>
+          <li>API integration and downstream system connectivity</li>
+          <li>Full migration execution and post-cutover stabilization</li>
+          <li>Infrastructure dependency analysis: AD, DNS, SIP, VM</li>
+          <li>HIPAA / PHIPA compliant fax infrastructure</li>
+        </ul>
+        <div class="svc-model">Hourly · Fixed project scope · Managed retainer</div>
+      </div>
+      <div class="svc reveal reveal-delay-1">
+        <div class="svc-num">02 / CLOUD &amp; MIGRATION</div>
+        <svg class="svc-icon" width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="10" stroke="#22d3ee" stroke-width="1.2"/><circle cx="20" cy="20" r="16" stroke="#22d3ee" stroke-width="0.6" stroke-dasharray="3 3" opacity="0.4"/><line x1="20" y1="4" x2="20" y2="36" stroke="#22d3ee" stroke-width="0.6" opacity="0.3"/><line x1="4" y1="20" x2="36" y2="20" stroke="#22d3ee" stroke-width="0.6" opacity="0.3"/><circle cx="20" cy="20" r="2.5" fill="#22d3ee"/></svg>
+        <div class="svc-name">Setup &amp; Migration Services</div>
+        <div class="svc-sub">End-to-end deployment and platform transition — planned, executed, validated</div>
+        <ul class="svc-list">
+          <li>Server deployment and environment configuration</li>
+          <li>Network device setup, hardening, and troubleshooting</li>
+          <li>Cloud onboarding and Microsoft Azure infrastructure</li>
+          <li>Secure data and system migrations with full validation</li>
+          <li>Software rollout, licensing, and user onboarding</li>
+          <li>UAT coordination and post-cutover stabilization</li>
+        </ul>
+        <div class="svc-model">Fixed-price · Scoped after initial consultation</div>
+      </div>
+      <div class="svc reveal reveal-delay-2">
+        <div class="svc-num">03 / SECURITY</div>
+        <svg class="svc-icon" width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 5 L32 11 L32 22 C32 29 26 35 20 37 C14 35 8 29 8 22 L8 11 Z" stroke="#22d3ee" stroke-width="1.2" stroke-linejoin="round"/><path d="M15 20 L18 23 L25 16" stroke="#22d3ee" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="svc-name">Security &amp; Patch Management</div>
+        <div class="svc-sub">Proactive security operations to reduce exposure and maintain compliance</div>
+        <ul class="svc-list">
+          <li>Patch management and coordinated update cycles</li>
+          <li>Vulnerability identification, prioritization, and reporting</li>
+          <li>Security configuration and hardening reviews</li>
+          <li>Risk assessment and structured remediation planning</li>
+          <li>Microsoft Defender for Endpoint monitoring</li>
+          <li>SOC 2 readiness and IAM governance</li>
+        </ul>
+        <div class="svc-model">Monthly retainer · Project assessment · Hourly</div>
+      </div>
+      <div class="svc reveal reveal-delay-3">
+        <div class="svc-num">04 / IT SUPPORT</div>
+        <svg class="svc-icon" width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="16" width="10" height="9" rx="1.5" stroke="#22d3ee" stroke-width="1.2"/><rect x="24" y="8" width="10" height="9" rx="1.5" stroke="#22d3ee" stroke-width="1.2"/><rect x="24" y="24" width="10" height="9" rx="1.5" stroke="#22d3ee" stroke-width="1.2"/><line x1="16" y1="20.5" x2="24" y2="12.5" stroke="#22d3ee" stroke-width="1"/><line x1="16" y1="20.5" x2="24" y2="28.5" stroke="#22d3ee" stroke-width="1"/></svg>
+        <div class="svc-name">IT Support &amp; Infrastructure</div>
+        <div class="svc-sub">Day-to-day IT operations and platform administration</div>
+        <ul class="svc-list">
+          <li>Troubleshooting, incident triage, and resolution</li>
+          <li>Identity, login, and access management</li>
+          <li>Microsoft 365: Exchange, Teams, SharePoint</li>
+          <li>Active Directory and Windows Server administration</li>
+          <li>IT operations stabilization and process improvement</li>
+          <li>Vendor and third-party coordination</li>
+        </ul>
+        <div class="svc-model">Hourly · Project-based · Ongoing retainer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="cases">
+  <div class="inner">
+    <p class="eyebrow">Case Studies</p>
+    <h2 class="section-h">Real engagements.<br><em>Proven</em> outcomes.</h2>
+    <p class="section-p">Two enterprise RightFax engagements at major Canadian financial institutions — delivered on time, on scope, with zero post-cutover incidents.</p>
+    <div class="cases-grid">
+      <div class="case reveal">
+        <div class="case-header">
+          <div>
+            <div class="case-client">Major Canadian Financial Institution</div>
+            <div class="case-scope">RightFax On-Premises to Azure Cloud Migration</div>
+          </div>
+          <div class="case-type">Cloud Migration</div>
+        </div>
+        <div class="case-body">
+          <p class="case-desc">Led the full lifecycle migration of a financial institution's on-premises RightFax infrastructure to Microsoft Azure. Designed network and systems architecture, built out high-availability Azure infrastructure including load balancing, SQL integration, and network security controls. Integrated RightFax with MuleSoft via SDK, deployed the RightFax Web Portal via IIS, and concluded with RightFax Connect implementation — eliminating physical fax infrastructure entirely.</p>
+          <div class="case-stats">
+            <div class="case-stat"><div class="case-stat-val">100%</div><div class="case-stat-lbl">UAT Pass Rate</div></div>
+            <div class="case-stat"><div class="case-stat-val">3 mo</div><div class="case-stat-lbl">Delivery</div></div>
+            <div class="case-stat"><div class="case-stat-val">Zero</div><div class="case-stat-lbl">Post-Cutover Incidents</div></div>
+          </div>
+          <div class="case-tags">
+            <span class="tag">Azure IaaS</span><span class="tag">RightFax</span><span class="tag">MuleSoft SDK</span><span class="tag">Azure Load Balancer</span><span class="tag">RightFax Connect</span><span class="tag">UAT</span>
+          </div>
+        </div>
+      </div>
+      <div class="case reveal reveal-delay-2">
+        <div class="case-header">
+          <div>
+            <div class="case-client">Major Canadian Financial Institution</div>
+            <div class="case-scope">RightFax DiD SIP Trunk Migration — 7-Phase</div>
+          </div>
+          <div class="case-type">Telecom Migration</div>
+        </div>
+        <div class="case-body">
+          <p class="case-desc">Managed and executed a complex 7-phase RightFax DiD SIP migration, transitioning from legacy PBX to a modern SIP trunk over three months. Each phase underwent formal CAB approval with ServiceNow change management. Coordinated directly with the telecom provider for DiD number porting, validated all configurations in a dev environment before production, and performed end-to-end testing after each phase. Concluded with full decommission of the legacy fax gateway.</p>
+          <div class="case-stats">
+            <div class="case-stat"><div class="case-stat-val">7</div><div class="case-stat-lbl">Migration Phases</div></div>
+            <div class="case-stat"><div class="case-stat-val">CAB</div><div class="case-stat-lbl">Governed Process</div></div>
+            <div class="case-stat"><div class="case-stat-val">Zero</div><div class="case-stat-lbl">Rollbacks Required</div></div>
+          </div>
+          <div class="case-tags">
+            <span class="tag">SIP Trunking</span><span class="tag">RightFax</span><span class="tag">CAB Governance</span><span class="tag">ServiceNow</span><span class="tag">Telecom Coordination</span><span class="tag">PBX Decommission</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMERGENCY -->
+<section id="emergency">
+  <div class="inner">
+    <p class="eyebrow">Emergency Support</p>
+    <h2 class="section-h">When systems go down,<br>we <em>respond</em></h2>
+    <p class="section-p">Emergency support is available for critical disruptions. Fast triage, honest assessment, rapid stabilization — no lengthy onboarding required.</p>
+    <div class="emg-grid">
+      <div class="emg-card reveal"><div class="emg-icon">📠</div><div class="emg-title">RightFax Outages</div><div class="emg-desc">Transmission failures, stuck queues, service down. We understand the full infrastructure chain behind every failure.</div></div>
+      <div class="emg-card reveal reveal-delay-1"><div class="emg-icon">⚙️</div><div class="emg-title">Failed Migrations</div><div class="emg-desc">Cutover issues, rollback planning, environment recovery. We've managed complex multi-phase migrations under CAB governance.</div></div>
+      <div class="emg-card reveal reveal-delay-2"><div class="emg-icon">🔐</div><div class="emg-title">Login &amp; Access Failures</div><div class="emg-desc">Active Directory issues, account lockouts, MFA failures, and authentication breakdowns across enterprise environments.</div></div>
+      <div class="emg-card reveal"><div class="emg-icon">🖥️</div><div class="emg-title">Server Incidents</div><div class="emg-desc">Crashes, performance degradation, OS-level failures — rapid diagnosis and stabilization across Windows Server environments.</div></div>
+      <div class="emg-card reveal reveal-delay-1"><div class="emg-icon">🌐</div><div class="emg-title">Infrastructure Disruptions</div><div class="emg-desc">Network, firewall, DNS, and connectivity failures. CCNP-level troubleshooting for complex enterprise environments.</div></div>
+      <div class="emg-card reveal reveal-delay-2"><div class="emg-icon">☁️</div><div class="emg-title">Cloud &amp; Azure Issues</div><div class="emg-desc">Provisioning failures, sync errors, hybrid connectivity breakdowns — Azure infrastructure support from engineers who've built it.</div></div>
+    </div>
+    <div class="emg-cta reveal">
+      <div><div class="emg-cta-h">Facing a critical issue right now?</div><div class="emg-cta-p">Message us directly on LinkedIn or email for fastest response. Emergency slots are available.</div></div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="#contact" class="btn btn-signal">Contact Us Now <span class="btn-arrow">→</span></a>
+        <a href="https://www.linkedin.com/company/citadel-sentinel-it/" target="_blank" class="btn btn-ghost">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="inner">
+    <p class="eyebrow">How We Work</p>
+    <h2 class="section-h">Simple. Transparent.<br><em>Effective.</em></h2>
+    <p class="section-p">Every engagement follows the same structured approach — no guesswork, no hidden costs, no surprises.</p>
+    <div class="process-track">
+      <div class="process-step reveal"><div class="step-bubble">01</div><div class="step-title">Free Consultation</div><div class="step-desc">We take the time to understand your environment and recommend the right approach. No obligation. No sales pitch. Just an honest technical conversation.</div></div>
+      <div class="process-step reveal reveal-delay-1"><div class="step-bubble">02</div><div class="step-title">Scoping &amp; Planning</div><div class="step-desc">Clear scope, transparent pricing, and a realistic timeline — defined upfront so there are no surprises during delivery.</div></div>
+      <div class="process-step reveal reveal-delay-2"><div class="step-bubble">03</div><div class="step-title">Execution</div><div class="step-desc">Senior-led delivery. We work directly in your environment with minimal disruption, keeping you informed at every stage.</div></div>
+      <div class="process-step reveal reveal-delay-3"><div class="step-bubble">04</div><div class="step-title">Validation &amp; Handoff</div><div class="step-desc">We validate outcomes against defined success criteria, document everything, and ensure your team is set up for long-term stability.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="inner">
+    <p class="eyebrow">Why Citadel Sentinel</p>
+    <h2 class="section-h">The difference <em>expertise</em> makes</h2>
+    <div class="why-grid">
+      <div class="why-cell reveal"><div class="why-n">01</div><div class="why-title">Senior-Only Delivery</div><div class="why-desc">Every engagement is handled by a senior engineer with real enterprise experience. No junior handoffs, no account managers in between.</div></div>
+      <div class="why-cell reveal reveal-delay-1"><div class="why-n">02</div><div class="why-title">RightFax Specialists</div><div class="why-desc">One of the few consultancies in Canada with deep, hands-on OpenText RightFax expertise — migrations, integrations, and emergency outage recovery.</div></div>
+      <div class="why-cell reveal reveal-delay-2"><div class="why-n">03</div><div class="why-title">Regulated Industry Experience</div><div class="why-desc">Healthcare, financial services, and compliance-driven environments. We understand the operational and regulatory constraints you work within.</div></div>
+      <div class="why-cell reveal"><div class="why-n">04</div><div class="why-title">Flexible Engagement Models</div><div class="why-desc">Hourly, fixed-price project, or ongoing managed retainer. We structure every engagement around your budget and operational needs.</div></div>
+      <div class="why-cell reveal reveal-delay-1"><div class="why-n">05</div><div class="why-title">No Unnecessary Overhead</div><div class="why-desc">Lean consultancy model means faster response, direct communication, and no bloated retainer fees for support you don't need.</div></div>
+      <div class="why-cell reveal reveal-delay-2"><div class="why-n">06</div><div class="why-title">Free Initial Consultation</div><div class="why-desc">Every engagement starts with an honest technical conversation at no cost. We assess your environment and recommend the right path forward.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="inner">
+    <p class="eyebrow">Contact</p>
+    <h2 class="section-h">Start with a <em>free</em><br>consultation</h2>
+    <div class="contact-layout">
+      <div class="contact-lede reveal">
+        <p>Whether you're dealing with an <strong>active outage</strong>, planning a migration, or looking to stabilize a critical system — reach out and we'll have an honest conversation about your situation and how we can help.</p>
+        <p>Emergency slots are available for critical disruptions. For the fastest response, message us directly on LinkedIn.</p>
+        <div class="contact-details">
+          <div class="contact-item"><div class="contact-icon">✉</div><div class="contact-text"><a href="mailto:info@citadelsentinel.ca">info@citadelsentinel.ca</a></div></div>
+          <div class="contact-item"><div class="contact-icon">in</div><div class="contact-text"><a href="https://www.linkedin.com/company/citadel-sentinel-it/" target="_blank">linkedin.com/company/citadel-sentinel-it</a></div></div>
+          <div class="contact-item"><div class="contact-icon">📍</div><div class="contact-text">Milton, Ontario · GTA &amp; Canada · On-site, Hybrid, Remote</div></div>
+        </div>
+        <div class="free-box">
+          <div class="free-box-label">Free Initial Consultation</div>
+          <div class="free-box-text">No obligation. No sales pitch. Just an honest technical conversation about your environment and what the right path forward looks like. Clear scope and pricing upfront.</div>
+        </div>
+      </div>
+      <div class="form-card reveal reveal-delay-2">
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">First Name</label><input class="form-input" type="text" placeholder="John" required></div>
+            <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" type="text" placeholder="Smith" required></div>
+          </div>
+          <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" placeholder="john@company.com" required></div>
+          <div class="form-group"><label class="form-label">Organization</label><input class="form-input" type="text" placeholder="Company name"></div>
+          <div class="form-group">
+            <label class="form-label">Service Area</label>
+            <select class="form-select">
+              <option value="">Select a service...</option>
+              <option>RightFax Support or Migration</option>
+              <option>Azure Infrastructure or Migration</option>
+              <option>Security &amp; Patch Management</option>
+              <option>IT Support &amp; Infrastructure</option>
+              <option>Emergency Support</option>
+              <option>General Inquiry</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="form-label">Tell us about your situation</label><textarea class="form-textarea" placeholder="Describe the issue or what you're looking to accomplish..."></textarea></div>
+          <button type="submit" class="form-submit" id="submitBtn">Send Message</button>
+          <p class="form-note">Typically respond within 1 business day. For urgent issues, message directly on LinkedIn.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Citadel <span>Sentinel</span></div>
+        <p class="footer-desc">IT Infrastructure, Support &amp; Cybersecurity Consulting. Specialized in OpenText RightFax, Azure infrastructure, and enterprise system stabilization across the Greater Toronto Area and Canada.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="#services">RightFax &amp; Fax Systems</a></li>
+          <li><a href="#services">Azure &amp; Cloud Migration</a></li>
+          <li><a href="#services">Security &amp; Patch Management</a></li>
+          <li><a href="#services">IT Support &amp; Infrastructure</a></li>
+          <li><a href="#emergency">Emergency Support</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#cases">Case Studies</a></li>
+          <li><a href="#process">How We Work</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="https://www.linkedin.com/company/citadel-sentinel-it/" target="_blank">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Citadel Sentinel IT &amp; Cybersecurity Solutions Inc. All rights reserved.</div>
+      <div class="footer-loc">📍 Milton, Ontario, Canada</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Custom cursor
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px'});
+(function a(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a)})();
+document.querySelectorAll('a,button,.svc,.case,.why-cell,.cred-cell').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.width='12px';cursor.style.height='12px';ring.style.width='50px';ring.style.height='50px';ring.style.opacity='0.7'});
+  el.addEventListener('mouseleave',()=>{cursor.style.width='6px';cursor.style.height='6px';ring.style.width='32px';ring.style.height='32px';ring.style.opacity='0.4'});
+});
+
+// Nav scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
+
+// Mobile nav
+function toggleNav(){
+  const l=document.getElementById('navLinks'),open=l.style.display==='flex';
+  l.style.display=open?'none':'flex';
+  if(!open)Object.assign(l.style,{flexDirection:'column',position:'fixed',top:'68px',left:'0',right:'0',background:'rgba(5,17,31,0.98)',padding:'1.5rem 2rem',borderBottom:'1px solid rgba(34,211,238,0.15)',gap:'1.2rem',zIndex:'499'});
+}
+document.querySelectorAll('#navLinks a').forEach(a=>a.addEventListener('click',()=>{document.getElementById('navLinks').style.display='none'}));
+
+// Reveal on scroll
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Form
+function handleSubmit(e){
+  e.preventDefault();
+  const btn=document.getElementById('submitBtn');
+  btn.textContent="Message Sent — We'll be in touch soon";
+  btn.style.background='#16a34a';
+  btn.disabled=true;
+}
+</script>
+</body>
+</html>
