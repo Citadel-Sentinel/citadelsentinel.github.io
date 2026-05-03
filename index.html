@@ -160,7 +160,7 @@ section {
 
 /* ABOUT */
 #about{background:var(--ink-2);border-top:1px solid var(--border-2);border-bottom:1px solid var(--border-2)}
-.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;margin-top:4rem}
+.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;margin-top:4rem}.about-layout>div{min-width:0;width:100%}
 .about-body p{font-size:16px;font-weight:300;color:var(--white-70);line-height:1.85;margin-bottom:1.3rem}
 .about-body p strong{color:var(--white);font-weight:500}
 .about-body p em{font-style:normal;color:var(--signal)}
@@ -211,7 +211,7 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
 @media(max-width:960px){
   .hero-inner{grid-template-columns:1fr;gap:3rem}
   .hero-panel{display:none}
-  .about-layout{grid-template-columns:1fr;gap:3rem}
+  .about-layout{grid-template-columns:1fr;gap:3rem}.about-layout>div{width:100%;min-height:0}
   .why-grid{grid-template-columns:1fr 1fr}
   .footer-top{grid-template-columns:1fr 1fr}
   .nav-links{display:none}
@@ -221,8 +221,18 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
   .why-grid{grid-template-columns:1fr}
   .footer-top{grid-template-columns:1fr}
   .hero-metrics{grid-template-columns:1fr}
-  .about-layout{grid-template-columns:1fr;gap:2rem;margin-top:2.5rem}
+  .about-layout{grid-template-columns:1fr;gap:2rem;margin-top:2rem}
+  .about-layout>div{width:100%;min-height:0;box-sizing:border-box}
   .cred-board{grid-template-columns:1fr 1fr;width:100%}
+  .cred-cell{padding:1.2rem 1rem}
+  .cred-val{font-size:1.3rem;word-break:break-word;hyphens:auto}
+  .cred-lbl{font-size:10px;letter-spacing:0.05em}
+  .about-body p{font-size:15px}
+}
+  .footer-top{grid-template-columns:1fr}
+  .hero-metrics{grid-template-columns:1fr}
+  .about-layout{gap:2rem;margin-top:2.5rem}
+  .cred-board{grid-template-columns:1fr 1fr}
   .cred-cell{padding:1.2rem 1rem}
   .cred-val{font-size:1.3rem;word-break:break-word;hyphens:auto}
   .cred-lbl{font-size:10px;letter-spacing:0.05em}
@@ -301,8 +311,8 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
         </div>
       </div>
     </div>
-  </div><!-- /hero-inner -->
-</section><!-- /hero -->
+
+ 
 
 <!-- ABOUT -->
 <section id="about">
