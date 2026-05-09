@@ -40,6 +40,8 @@
   "knowsAbout": ["OpenText RightFax", "Microsoft Azure", "IT Infrastructure", "Cybersecurity", "DevOps"],
   "serviceType": ["RightFax Migration", "Azure Infrastructure Consulting", "Emergency IT Support", "Managed IT Retainer"]
 }
+
+if(window.innerWidth<=600){document.querySelectorAll('.hero-h1 .line span').forEach(s=>{s.style.cssText='transform:translateY(0)!important;animation:none!important;display:block!important;opacity:1!important;'});}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -237,7 +239,6 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
   .hamburger{display:flex}
 }
 @media(max-width:600px) {
-  /* HERO CONTAINER */
   .hero {
     min-height: auto !important;
     height: auto !important;
@@ -245,30 +246,25 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
     display: block !important;
     overflow: visible !important;
   }
-
   .hero-inner {
     overflow: visible !important;
     display: block !important;
   }
-
-  /* HEADLINE - kill animation entirely */
   .hero-h1 {
-    font-size: clamp(1.8rem, 8.5vw, 2.4rem) !important;
-    line-height: 1.15 !important;
+    font-size: clamp(1.3rem, 5.5vw, 1.9rem) !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.01em !important;
     margin-bottom: 1.5rem !important;
     height: auto !important;
     overflow: visible !important;
   }
-
   .hero-h1 .line {
     overflow: visible !important;
     display: block !important;
     height: auto !important;
     padding-bottom: 0 !important;
-    clip: auto !important;
     clip-path: none !important;
   }
-
   .hero-h1 .line span {
     display: block !important;
     transform: translateY(0) !important;
@@ -276,12 +272,12 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
     animation-name: none !important;
     animation-duration: 0s !important;
     animation-delay: 0s !important;
-    white-space: normal !important;
+    white-space: nowrap !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
     overflow: visible !important;
     opacity: 1 !important;
   }
-
-  /* SUBTEXT & BUTTONS */
   .hero-sub {
     font-size: 15px !important;
     line-height: 1.6 !important;
@@ -290,7 +286,6 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
     animation: none !important;
     opacity: 1 !important;
   }
-
   .hero-actions {
     width: 100% !important;
     display: flex !important;
@@ -299,32 +294,44 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
     animation: none !important;
     opacity: 1 !important;
   }
-
   .btn {
     width: 100% !important;
     justify-content: center !important;
     padding: 16px 20px !important;
   }
-
-  /* METRICS */
   .hero-metrics {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr 1fr !important;
     width: 100% !important;
     margin-top: 2rem !important;
     animation: none !important;
     opacity: 1 !important;
   }
-
-  .metric-val { font-size: 1.5rem !important; }
-  .metric-label { font-size: 10px !important; }
-
-  /* SECTIONS */
-  .section-h { font-size: clamp(1.35rem, 5.5vw, 1.9rem); line-height: 1.1; }
+  .metric-val { font-size: 1.3rem !important; }
+  .metric-label { font-size: 9px !important; }
+  .section-h {
+    font-size: clamp(1.35rem, 5.5vw, 1.9rem);
+    line-height: 1.1;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
   .about-layout { grid-template-columns: 1fr; gap: 1.75rem; margin-top: 2rem; }
   .about-body p { font-size: 15px; line-height: 1.75; }
   .cred-board { grid-template-columns: 1fr 1fr; width: 100%; }
-  .cred-cell { padding: 1.1rem 0.9rem; }
-  .cred-val { font-size: 1.2rem; }
+  .cred-cell { padding: 1rem 0.75rem; min-height: 90px; }
+  .cred-val {
+    font-size: 1rem !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    line-height: 1.2 !important;
+    margin-bottom: 4px !important;
+  }
+  .cred-lbl {
+    font-size: 9px !important;
+    line-height: 1.4 !important;
+    word-break: break-word !important;
+  }
   .why-grid { grid-template-columns: 1fr; }
   .why-cell { padding: 1.5rem; }
   .why-n { font-size: 2.5rem; }
@@ -332,10 +339,14 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
   section { padding: clamp(2rem, 5vw, 3rem) clamp(1rem, 5vw, 1.5rem); }
 }
 @media(max-width:400px){
-  .hero-h1{font-size:clamp(1.6rem,10vw,1.9rem)}
-  .hero-metrics{grid-template-columns:1fr}
-  .metric{padding:1rem}
+  .hero-h1 { font-size: clamp(1.2rem, 8vw, 1.5rem) !important; }
+  .hero-metrics { grid-template-columns: 1fr !important; }
+  .metric { padding: 1rem; }
+  .cred-val { font-size: 0.9rem !important; }
+  .cred-board { grid-template-columns: 1fr !important; }
 }
+.hero-panel *{max-width:100%;box-sizing:border-box}
+
 .hero-panel *{max-width:100%;box-sizing:border-box}
 </style>
 </head>
@@ -564,9 +575,6 @@ function toggleNav(){
 document.querySelectorAll('#navLinks a').forEach(a=>a.addEventListener('click',()=>{document.getElementById('navLinks').style.display='none'}));
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}})},{threshold:0.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-if(window.innerWidth<=600){document.querySelectorAll('.hero-h1 .line span').forEach(s=>{s.style.cssText='transform:translateY(0)!important;animation:none!important;display:block!important;opacity:1!important;'});}
-
 </script>
 </body>
 </html>
