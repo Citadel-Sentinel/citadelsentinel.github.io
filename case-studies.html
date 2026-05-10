@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XELCN4YHCV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XELCN4YHCV');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Case Studies | Citadel Sentinel IT & Cybersecurity Solutions</title>
@@ -35,7 +44,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:0 clamp(1.25rem,4vw,
 .nav-links a:hover{color:var(--white)}
 .nav-links a:hover::after,.nav-links a.active::after{width:100%}
 .nav-links a.active{color:var(--white)}
-.nav-cta{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:10px 22px;border-radius:var(--radius);background:transparent;border:1px solid var(--signal);color:var(--signal) !important;text-decoration:none;transition:all 0.25s}
+.nav-cta{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:10px 22px;border-radius:var(--radius);background:transparent;border:1px solid var(--signal);color:var(--signal) !important;text-decoration:none;transition:all 0.25s;white-space:nowrap}
 .nav-cta:hover{background:var(--signal);color:var(--ink) !important}
 .nav-cta::after{display:none !important}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
@@ -116,11 +125,14 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
   .footer-top{grid-template-columns:1fr}
   .case-stats{grid-template-columns:1fr}
   .page-hero{padding:120px 0.75rem 50px !important}
-  .section-h{font-size:clamp(1.2rem,5.5vw,1.8rem) !important;line-height:1.15;word-break:break-word;overflow-wrap:break-word}
+  .section-h{font-size:clamp(1rem,4.2vw,1.6rem) !important;line-height:1.15;word-break:break-word;overflow-wrap:break-word}
   section{padding-left:0.75rem !important;padding-right:0.75rem !important}
+  .case-header{flex-direction:column;gap:0.75rem}
+  .case-scope{white-space:normal;overflow-wrap:break-word;word-break:break-word;font-size:12px}
+  .nav-cta{width:auto !important;padding:10px 22px !important}
 }
-@media(max-width:400px){
-  .section-h{font-size:clamp(1.05rem,7vw,1.3rem) !important}
+@media(max-width:380px){
+  .section-h{font-size:clamp(0.75rem,3.6vw,1rem) !important}
 }
 </style>
 </head>

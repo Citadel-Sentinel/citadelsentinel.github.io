@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XELCN4YHCV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XELCN4YHCV');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Citadel Sentinel | RightFax & Azure Infrastructure Consulting | Milton, Ontario</title>
@@ -76,7 +85,7 @@ nav.scrolled{background:rgba(5,17,31,0.97);border-color:var(--border-2);backdrop
 .nav-links a:hover{color:var(--white)}
 .nav-links a:hover::after,.nav-links a.active::after{width:100%}
 .nav-links a.active{color:var(--white)}
-.nav-cta{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:10px 22px;border-radius:var(--radius);background:transparent;border:1px solid var(--signal);color:var(--signal) !important;text-decoration:none;transition:all 0.25s}
+.nav-cta{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:10px 22px;border-radius:var(--radius);background:transparent;border:1px solid var(--signal);color:var(--signal) !important;text-decoration:none;transition:all 0.25s;white-space:nowrap}
 .nav-cta:hover{background:var(--signal);color:var(--ink) !important}
 .nav-cta::after{display:none !important}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
@@ -251,7 +260,7 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
     display: block !important;
   }
   .hero-h1 {
-    font-size: clamp(1.3rem, 5.5vw, 1.9rem) !important;
+    font-size: clamp(0.95rem, 4.6vw, 1.9rem) !important;
     line-height: 1.2 !important;
     letter-spacing: -0.01em !important;
     margin-bottom: 1.5rem !important;
@@ -299,6 +308,10 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
     justify-content: center !important;
     padding: 16px 20px !important;
   }
+  .nav-cta {
+    width: auto !important;
+    padding: 10px 22px !important;
+  }
   .hero-metrics {
     grid-template-columns: 1fr 1fr !important;
     width: 100% !important;
@@ -309,7 +322,7 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
   .metric-val { font-size: 1.3rem !important; }
   .metric-label { font-size: 9px !important; }
   .section-h {
-    font-size: clamp(1.35rem, 5.5vw, 1.9rem);
+    font-size: clamp(1rem, 4.2vw, 1.6rem);
     line-height: 1.1;
     word-break: break-word;
     overflow-wrap: break-word;
@@ -335,8 +348,8 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
   .footer-top { grid-template-columns: 1fr; }
   section { padding: clamp(2rem, 5vw, 3rem) clamp(1rem, 5vw, 1.5rem); }
 }
-@media(max-width:400px){
-  .hero-h1 { font-size: clamp(1.2rem, 8vw, 1.5rem) !important; }
+@media(max-width:380px){ .hero-h1 { font-size: clamp(0.85rem, 4.2vw, 1.2rem) !important; letter-spacing: -0.03em !important; } .section-h { font-size: clamp(0.75rem, 3.6vw, 1rem); } } @media(max-width:400px){
+  .hero-h1 { font-size: clamp(0.95rem, 4.5vw, 1.3rem) !important; }
   .hero-metrics { grid-template-columns: 1fr !important; }
   .metric { padding: 1rem; }
   .cred-val { font-size: 0.9rem !important; }
