@@ -74,6 +74,36 @@
   </url>
 
   <url>
+    <loc>https://www.citadelsentinel.ca/kb-channels-not-coming-up.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.citadelsentinel.ca/kb-faxes-stuck-in-conversion.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.citadelsentinel.ca/kb-registry-margins.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.citadelsentinel.ca/kb-waiting-for-conversion.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.citadelsentinel.ca/kb-fcs-conversion-fails.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
     <loc>https://www.citadelsentinel.ca/contact.html</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>

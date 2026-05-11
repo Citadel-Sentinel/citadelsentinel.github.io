@@ -11,9 +11,9 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RightFax Troubleshooting Guide &amp; Knowledge Base | Citadel Sentinel</title>
-<meta name="description" content="Expert RightFax troubleshooting articles covering AV exclusions, Doc Transport failures, legacy upgrades, fax data migration, and outbound queue backlogs. Real enterprise field notes from a certified RightFax specialist.">
-<link rel="canonical" href="https://www.citadelsentinel.ca/kb.html">
+<title>RightFax Faxes Stuck in Conversion: Overview and Fix Paths | Citadel Sentinel</title>
+<meta name="description" content="Overview of RightFax fax conversion stalls, with links to the specific fixes for shared-service paths, Waiting for Conversion, registry margins, and FCS conversion failures.">
+<link rel="canonical" href="https://www.citadelsentinel.ca/kb-faxes-stuck-in-conversion.html">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -127,6 +127,19 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
 @media(max-width:960px){.kb-index{grid-template-columns:1fr 1fr}.footer-top{grid-template-columns:1fr 1fr}.nav-links{display:none}.hamburger{display:flex}}
 @media(max-width:600px){.kb-index{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr}.page-hero{padding:120px 0.75rem 50px !important}.section-h{font-size:clamp(1rem,4.2vw,1.6rem) !important;line-height:1.15;word-break:break-word}.article-title{font-size:clamp(1.1rem,4vw,1.5rem) !important}.step-item{grid-template-columns:38px 1fr;gap:1rem}.step-num{font-size:1.1rem}.nav-cta{width:auto !important;padding:10px 22px !important}}
 @media(max-width:380px){.section-h{font-size:clamp(0.75rem,3.6vw,1rem) !important}}
+
+.related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:0.75rem}
+.related-links a{display:inline-flex;align-items:center;padding:8px 12px;border:1px solid var(--signal);background:rgba(34,211,238,0.10);color:var(--signal);text-decoration:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border-radius:2px;transition:all 0.2s}
+.related-links a:hover{background:var(--signal);color:var(--ink)}
+
+
+.related-callout{margin-top:1rem;padding:1.25rem 1.4rem;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.28);border-radius:4px}
+.related-callout .related-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--signal);margin-bottom:0.75rem}
+.related-callout .related-text{font-size:14px;color:var(--white-70);margin-bottom:0.9rem}
+.related-callout .related-links{display:flex;flex-wrap:wrap;gap:12px}
+.related-callout .related-links a{display:inline-flex;align-items:center;padding:10px 14px;background:var(--signal);color:var(--ink);text-decoration:none;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border-radius:2px;box-shadow:0 8px 24px rgba(34,211,238,0.18);transition:transform 0.2s,box-shadow 0.2s}
+.related-callout .related-links a:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(34,211,238,0.28)}
+
 </style>
 </head>
 <body>
@@ -153,94 +166,95 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
   <div class="page-hero-lines"></div>
   <div class="page-hero-inner">
     <p class="eyebrow">Knowledge Base</p>
-    <h1 class="section-h">RightFax technical<br><em>field notes.</em></h1>
-    <p class="section-p">Documented from real enterprise engagements. Focused on the failures, edge cases, and configuration pitfalls that official documentation rarely surfaces.</p>
+    <h1 class="section-h">Faxes Stuck in Conversion:<br><em>Overview and Fix Paths</em></h1>
+    <p class="section-p">Use this page as the starting point when faxes stall in conversion. Each symptom points to a different fix path, so the fastest resolution is to match the behavior to the right article before changing anything.</p>
   </div>
 </div>
 
-<section style="padding:clamp(3rem,6vw,5rem) clamp(1.25rem,4vw,3rem)">
+<section style="padding:clamp(4rem,8vw,6rem) clamp(1.25rem,4vw,3rem)">
   <div class="inner">
-    <p class="eyebrow">Articles</p>
-    <h2 class="section-h">Field notes on <em>common issues</em></h2>
-    <div class="kb-index">
 
-      <a href="kb-av-exclusions.html" class="kb-card reveal">
-        <div class="kb-card-cat">Installation</div>
-        <div class="kb-card-title">AV and Security Exclusions Before Installation</div>
-        <div class="kb-card-desc">Why skipping exclusions breaks service configuration, corrupts registry dependencies, and how to set them correctly before the installer runs.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+    <a href="kb.html" class="back-link reveal">&#x2190; Back to Knowledge Base</a>
 
-      <a href="kb-doc-transport.html" class="kb-card reveal reveal-delay-1">
-        <div class="kb-card-cat">Services</div>
-        <div class="kb-card-title">Doc Transport Service Not Starting</div>
-        <div class="kb-card-desc">Common causes including the Brooktrout TCP/UDP protocol toggle, an explicit setting that is easy to miss and will prevent the service from coming up.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+    <div class="reveal">
+      <div class="article-meta">
+        <span class="article-cat">Operations</span>
+        <span class="article-num">KB-008</span>
+      </div>
+      <h2 class="article-title">Faxes Stuck in Conversion: <em>Overview and Fix Paths</em></h2>
+      <p class="article-intro">When a fax appears stuck in conversion, the issue is usually one of four patterns: a shared-service path or file reference problem, a single bad source document, a printer or output path issue, or a narrower conversion engine failure covered by a dedicated article. This page helps you identify which branch applies before you go deeper.</p>
+    </div>
 
-      <a href="kb-legacy-upgrade.html" class="kb-card reveal reveal-delay-2">
-        <div class="kb-card-cat">Upgrades</div>
-        <div class="kb-card-title">Legacy Server Upgrades: Staging Server Strategy</div>
-        <div class="kb-card-desc">Very old RightFax versions often cannot upgrade directly to modern releases. How to use intermediate staging servers to step through schema migrations safely.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+    <div class="symptom-box reveal">
+      <div class="symptom-box-label">Common Patterns</div>
+      <ul class="symptom-list">
+        <li>Shared-service path or file reference is wrong or missing.</li>
+        <li>One corrupt or oversized document blocks the queue.</li>
+        <li>Printer or output path is unavailable.</li>
+        <li>Conversion engine behavior needs a dedicated fix article.</li>
+      </ul>
+    </div>
 
-      <a href="kb-delta-migration.html" class="kb-card reveal reveal-delay-3">
-        <div class="kb-card-cat">Migration</div>
-        <div class="kb-card-title">Delta Fax Migration Without Duplicates</div>
-        <div class="kb-card-desc">Drag-and-drop fax moves create new records and duplicates. The correct approach uses the RightFax admin migration utility for controlled delta passes.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+    <div class="steps reveal">
+      <div class="steps-label">Choose the Right Fix</div>
 
-      <a href="kb-queue-backlog.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Operations</div>
-        <div class="kb-card-title">Fax Queue Backlogs: Diagnosis and Resolution</div>
-        <div class="kb-card-desc">Identifying the root cause of accumulating outbound queues, from channel exhaustion and stuck transmissions to Doc Transport and gateway connectivity failures.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+      <div class="step-item">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-title-text">If the issue is path or file based</div>
+          <div class="step-desc">Check the shared-service configuration first. If the path, file name, or service account access is wrong, the queue can appear stalled even though the engine is running. This is the right branch when the problem started after a migration or server rebuild.</div>
+        </div>
+      </div>
 
-    
-      <a href="kb-user-migration-autoforward.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Migration</div>
-        <div class="kb-card-title">User Migration Failing: Error -9330 Autoforward</div>
-        <div class="kb-card-desc">A stale alternate user reference in FaxUtil mailbox notification settings blocks migration with error -9330. Not visible in EFM. Resolution requires clearing the orphaned reference directly in FaxUtil.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+      <div class="step-item">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-title-text">If one bad document blocks the queue</div>
+          <div class="step-desc">A single large or malformed document can hold up everything behind it. Remove or resubmit the suspect item in a simpler format and see whether conversion resumes.</div>
+        </div>
+      </div>
 
-      <a href="kb-channels-not-coming-up.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Services</div>
-        <div class="kb-card-title">RightFax Channels Not Coming Up</div>
-        <div class="kb-card-desc">Re-save Brooktrout settings, apply the configuration, and restart Doc Transport when channels stay down after startup. A fast first fix before deeper troubleshooting.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+      <div class="step-item">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-title-text">If the printer or output path is blocked</div>
+          <div class="step-desc">Use the Waiting for Conversion article when the queue is tied to an output printer problem, including the documented case where the printer is out of paper.</div>
+        </div>
+      </div>
 
-      <a href="kb-faxes-stuck-in-conversion.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Operations</div>
-        <div class="kb-card-title">Faxes Stuck in Conversion</div>
-        <div class="kb-card-desc">Shared-service path problems, missing file names, bad source documents, and printer path issues can all freeze conversion. Start with the configuration and the document in the queue.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+      <div class="step-item">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <div class="step-title-text">If the conversion engine itself will not start</div>
+          <div class="step-desc">Use the registry margins article when the failure is a conversion engine startup problem caused by malformed registry margin values.</div>
+        </div>
+      </div>
 
-      <a href="kb-registry-margins.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Conversion</div>
-        <div class="kb-card-title">RightFax Registry Margins</div>
-        <div class="kb-card-desc">Conversion Engine failures can be caused by malformed registry margin values. Fix the ISOConv IeConfig path, correct the decimal format, and restart the service.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+      <div class="step-item">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <div class="step-title-text">If Word attachments fail in FCS conversion</div>
+          <div class="step-desc">Use the FCS conversion article when Microsoft Word attachments remain in In FCS conversion and the cause is the workserver printer driver or PDF module setup.</div>
+        </div>
+      </div>
 
-          <a href="kb-waiting-for-conversion.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Conversion</div>
-        <div class="kb-card-title">Waiting for Conversion</div>
-        <div class="kb-card-desc">Auto-printing blocked by a printer out of paper can stall the queue until the output path is restored.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
-      <a href="kb-fcs-conversion-fails.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Conversion</div>
-        <div class="kb-card-title">FCS Conversion Fails</div>
-        <div class="kb-card-desc">Wrong workserver printer drivers or missing PDF module can leave Word attachments stuck in In FCS conversion.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
-</div>
+    </div>
+
+    <div class="pro-tip reveal">
+      <div class="pro-tip-label">Related Articles</div>
+      <div class="pro-tip-text">Start with the symptom, then jump to the specific fix: <a href="kb-registry-margins.html">Registry Margins</a>, <a href="kb-waiting-for-conversion.html">Waiting for Conversion</a>, and <a href="kb-fcs-conversion-fails.html">FCS Conversion Fails</a>. This keeps the KB organized and gives each article a clear search target.</div>
+    </div>
+
+    <div class="article-tags reveal">
+      <span class="tag">Conversion</span>
+      <span class="tag">Overview</span>
+      <span class="tag">Troubleshooting</span>
+      <span class="tag">Shared Services</span>
+      <span class="tag">Waiting for Conversion</span>
+      <span class="tag">Registry</span>
+      <span class="tag">FCS Conversion</span>
+    </div>
+
   </div>
 </section>
 <div class="cta-strip">

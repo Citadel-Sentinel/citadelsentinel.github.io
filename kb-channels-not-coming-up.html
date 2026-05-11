@@ -11,9 +11,9 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RightFax Troubleshooting Guide &amp; Knowledge Base | Citadel Sentinel</title>
-<meta name="description" content="Expert RightFax troubleshooting articles covering AV exclusions, Doc Transport failures, legacy upgrades, fax data migration, and outbound queue backlogs. Real enterprise field notes from a certified RightFax specialist.">
-<link rel="canonical" href="https://www.citadelsentinel.ca/kb.html">
+<title>RightFax Channels Not Coming Up: Brooktrout Configuration Fix | Citadel Sentinel</title>
+<meta name="description" content="How to fix RightFax channels that stay down by re-saving Brooktrout settings, applying the configuration, and restarting Doc Transport. Covers common misconfigurations including TCP/UDP, SIP gateway, and licensing.">
+<link rel="canonical" href="https://www.citadelsentinel.ca/kb-channels-not-coming-up.html">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -153,94 +153,105 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
   <div class="page-hero-lines"></div>
   <div class="page-hero-inner">
     <p class="eyebrow">Knowledge Base</p>
-    <h1 class="section-h">RightFax technical<br><em>field notes.</em></h1>
-    <p class="section-p">Documented from real enterprise engagements. Focused on the failures, edge cases, and configuration pitfalls that official documentation rarely surfaces.</p>
+    <h1 class="section-h">RightFax Channels Not Coming Up:<br><em>Brooktrout Configuration Fix</em></h1>
+    <p class="section-p">When channels stay down or fail to initialize, the root cause is often a Brooktrout configuration mismatch. Re-saving the board settings, applying them, and restarting Doc Transport resolves many cases where the service will not fully bring the channels online.</p>
   </div>
 </div>
 
-<section style="padding:clamp(3rem,6vw,5rem) clamp(1.25rem,4vw,3rem)">
+<section style="padding:clamp(4rem,8vw,6rem) clamp(1.25rem,4vw,3rem)">
   <div class="inner">
-    <p class="eyebrow">Articles</p>
-    <h2 class="section-h">Field notes on <em>common issues</em></h2>
-    <div class="kb-index">
 
-      <a href="kb-av-exclusions.html" class="kb-card reveal">
-        <div class="kb-card-cat">Installation</div>
-        <div class="kb-card-title">AV and Security Exclusions Before Installation</div>
-        <div class="kb-card-desc">Why skipping exclusions breaks service configuration, corrupts registry dependencies, and how to set them correctly before the installer runs.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+    <a href="kb.html" class="back-link reveal">&#x2190; Back to Knowledge Base</a>
 
-      <a href="kb-doc-transport.html" class="kb-card reveal reveal-delay-1">
-        <div class="kb-card-cat">Services</div>
-        <div class="kb-card-title">Doc Transport Service Not Starting</div>
-        <div class="kb-card-desc">Common causes including the Brooktrout TCP/UDP protocol toggle, an explicit setting that is easy to miss and will prevent the service from coming up.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+    <div class="reveal">
+      <div class="article-meta">
+        <span class="article-cat">Services</span>
+        <span class="article-num">KB-007</span>
+      </div>
+      <h2 class="article-title">RightFax Channels Not Coming Up: <em>Brooktrout Configuration Fix</em></h2>
+      <p class="article-intro">When RightFax channels refuse to come up or stay in a disabled state, the issue often traces back to a Brooktrout configuration that has not been applied cleanly. In many environments the board settings exist, but the service never fully reads the active configuration until the settings are re-saved and applied again. A simple Doc Transport restart after that step brings the channels online without any deeper change.</p>
+    </div>
 
-      <a href="kb-legacy-upgrade.html" class="kb-card reveal reveal-delay-2">
-        <div class="kb-card-cat">Upgrades</div>
-        <div class="kb-card-title">Legacy Server Upgrades: Staging Server Strategy</div>
-        <div class="kb-card-desc">Very old RightFax versions often cannot upgrade directly to modern releases. How to use intermediate staging servers to step through schema migrations safely.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+    <div class="symptom-box reveal">
+      <div class="symptom-box-label">Indicators</div>
+      <ul class="symptom-list">
+        <li>Channels remain down after Doc Transport starts</li>
+        <li>RightFax admin console shows no active channel availability</li>
+        <li>Brooktrout board appears configured but does not initialize properly</li>
+        <li>Restarting services does not change channel state until settings are reapplied</li>
+        <li>Outbound faxing remains unavailable even though the service is running</li>
+      </ul>
+    </div>
 
-      <a href="kb-delta-migration.html" class="kb-card reveal reveal-delay-3">
-        <div class="kb-card-cat">Migration</div>
-        <div class="kb-card-title">Delta Fax Migration Without Duplicates</div>
-        <div class="kb-card-desc">Drag-and-drop fax moves create new records and duplicates. The correct approach uses the RightFax admin migration utility for controlled delta passes.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+    <div class="steps reveal">
+      <div class="steps-label">Resolution Steps</div>
 
-      <a href="kb-queue-backlog.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Operations</div>
-        <div class="kb-card-title">Fax Queue Backlogs: Diagnosis and Resolution</div>
-        <div class="kb-card-desc">Identifying the root cause of accumulating outbound queues, from channel exhaustion and stuck transmissions to Doc Transport and gateway connectivity failures.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+      <div class="step-item">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-title-text">Open the Brooktrout Configuration Utility</div>
+          <div class="step-desc">Launch the Brooktrout configuration tool used for the fax board or virtual gateway. Review the active board profile and confirm the expected interface, protocol, and channel parameters are present. If the settings were imported from a prior server or copied during a migration, assume they may need to be re-applied before RightFax will recognize them correctly.</div>
+        </div>
+      </div>
 
-    
-      <a href="kb-user-migration-autoforward.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Migration</div>
-        <div class="kb-card-title">User Migration Failing: Error -9330 Autoforward</div>
-        <div class="kb-card-desc">A stale alternate user reference in FaxUtil mailbox notification settings blocks migration with error -9330. Not visible in EFM. Resolution requires clearing the orphaned reference directly in FaxUtil.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+      <div class="step-item">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-title-text">Check and Correct Brooktrout Settings</div>
+          <div class="step-desc">Before re-saving, verify the actual settings match your environment. Common misconfigurations include:
+            <ul class="path-list">
+              <li>TCP/UDP protocol toggle disabled (see KB-002)</li>
+              <li>SIP gateway IP or port mismatch</li>
+              <li>Channel count exceeding licensed capacity</li>
+              <li>Interface type set incorrectly (T1/E1 vs SIP)</li>
+            </ul>
+            Correct any misconfigurations, then re-save and explicitly apply the settings. This refreshes the board configuration and clears cases where the service is still using stale values.
+          </div>
+        </div>
+      </div>
 
-      <a href="kb-channels-not-coming-up.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Services</div>
-        <div class="kb-card-title">RightFax Channels Not Coming Up</div>
-        <div class="kb-card-desc">Re-save Brooktrout settings, apply the configuration, and restart Doc Transport when channels stay down after startup. A fast first fix before deeper troubleshooting.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+      <div class="step-item">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-title-text">Restart Doc Transport</div>
+          <div class="step-desc">After applying the Brooktrout settings, restart the RightFax Doc Transport service so it reloads the board configuration. If the channels were blocked by an initialization issue, they should come up during service startup. Watch the service status and the admin console to confirm the channels transition from down to available.</div>
+        </div>
+      </div>
 
-      <a href="kb-faxes-stuck-in-conversion.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Operations</div>
-        <div class="kb-card-title">Faxes Stuck in Conversion</div>
-        <div class="kb-card-desc">Shared-service path problems, missing file names, bad source documents, and printer path issues can all freeze conversion. Start with the configuration and the document in the queue.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+      <div class="step-item">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <div class="step-title-text">Confirm Channel Status in RightFax</div>
+          <div class="step-desc">Once the service restarts, verify the channels are active in the RightFax admin console and that outbound faxing resumes. If only some channels come up, compare the working and non-working board settings for mismatches in protocol, interface, or licensing. That comparison usually reveals whether the issue is configuration drift or a broader board communication problem.</div>
+        </div>
+      </div>
 
-      <a href="kb-registry-margins.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Conversion</div>
-        <div class="kb-card-title">RightFax Registry Margins</div>
-        <div class="kb-card-desc">Conversion Engine failures can be caused by malformed registry margin values. Fix the ISOConv IeConfig path, correct the decimal format, and restart the service.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+      <div class="step-item">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <div class="step-title-text">Escalate if Channels Still Stay Down</div>
+          <div class="step-desc">If the channels still do not initialize after re-saving, applying, and restarting Doc Transport, move to packet-level and gateway-side troubleshooting. At that point the issue may be tied to SIP registration, gateway reachability, board licensing, or a deeper Brooktrout fault. But in many environments this simple configuration refresh is the fastest and most reliable first fix.</div>
+        </div>
+      </div>
 
-          <a href="kb-waiting-for-conversion.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Conversion</div>
-        <div class="kb-card-title">Waiting for Conversion</div>
-        <div class="kb-card-desc">Auto-printing blocked by a printer out of paper can stall the queue until the output path is restored.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
-      <a href="kb-fcs-conversion-fails.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Conversion</div>
-        <div class="kb-card-title">FCS Conversion Fails</div>
-        <div class="kb-card-desc">Wrong workserver printer drivers or missing PDF module can leave Word attachments stuck in In FCS conversion.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
-</div>
+    </div>
+
+    <div class="pro-tip reveal">
+      <div class="pro-tip-label">Field Note</div>
+      <div class="pro-tip-text">This problem often shows up after a migration, patch, or board reconfiguration because the settings are technically present but not fully committed in a way that Doc Transport consumes cleanly. Re-saving the configuration is a low-risk step and should be one of the first checks when channels remain down. If it works, you avoid a much longer investigation into gateway or board-level causes.</div>
+    </div>
+
+    <div class="article-tags reveal">
+      <span class="tag">Channels</span>
+      <span class="tag">Doc Transport</span>
+      <span class="tag">Brooktrout</span>
+      <span class="tag">Service Restart</span>
+      <span class="tag">Fax Board</span>
+      <span class="tag">Channel Failure</span>
+      <span class="tag">Operations</span>
+      <span class="tag">Troubleshooting</span>
+    </div>
+
   </div>
 </section>
 <div class="cta-strip">

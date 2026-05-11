@@ -11,9 +11,9 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RightFax Troubleshooting Guide &amp; Knowledge Base | Citadel Sentinel</title>
-<meta name="description" content="Expert RightFax troubleshooting articles covering AV exclusions, Doc Transport failures, legacy upgrades, fax data migration, and outbound queue backlogs. Real enterprise field notes from a certified RightFax specialist.">
-<link rel="canonical" href="https://www.citadelsentinel.ca/kb.html">
+<title>RightFax Registry Margins Conversion Fix | Citadel Sentinel</title>
+<meta name="description" content="How to fix RightFax Conversion Engine failures and margin issues caused by incorrect registry values. Includes the ISOConv IeConfig path and the correct decimal margin format.">
+<link rel="canonical" href="https://www.citadelsentinel.ca/kb-registry-margins.html">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -153,94 +153,100 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
   <div class="page-hero-lines"></div>
   <div class="page-hero-inner">
     <p class="eyebrow">Knowledge Base</p>
-    <h1 class="section-h">RightFax technical<br><em>field notes.</em></h1>
-    <p class="section-p">Documented from real enterprise engagements. Focused on the failures, edge cases, and configuration pitfalls that official documentation rarely surfaces.</p>
+    <h1 class="section-h">RightFax Registry Margins<br><em>Conversion Fix</em></h1>
+    <p class="section-p">Incorrect registry margin values can stop the RightFax Conversion Engine from starting. The documented fix is to correct the registry path and replace malformed decimal values with the proper margin format.</p>
   </div>
 </div>
 
-<section style="padding:clamp(3rem,6vw,5rem) clamp(1.25rem,4vw,3rem)">
+<section style="padding:clamp(4rem,8vw,6rem) clamp(1.25rem,4vw,3rem)">
   <div class="inner">
-    <p class="eyebrow">Articles</p>
-    <h2 class="section-h">Field notes on <em>common issues</em></h2>
-    <div class="kb-index">
 
-      <a href="kb-av-exclusions.html" class="kb-card reveal">
-        <div class="kb-card-cat">Installation</div>
-        <div class="kb-card-title">AV and Security Exclusions Before Installation</div>
-        <div class="kb-card-desc">Why skipping exclusions breaks service configuration, corrupts registry dependencies, and how to set them correctly before the installer runs.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+    <a href="kb.html" class="back-link reveal">&#x2190; Back to Knowledge Base</a>
 
-      <a href="kb-doc-transport.html" class="kb-card reveal reveal-delay-1">
-        <div class="kb-card-cat">Services</div>
-        <div class="kb-card-title">Doc Transport Service Not Starting</div>
-        <div class="kb-card-desc">Common causes including the Brooktrout TCP/UDP protocol toggle, an explicit setting that is easy to miss and will prevent the service from coming up.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+    <div class="reveal">
+      <div class="article-meta">
+        <span class="article-cat">Conversion</span>
+        <span class="article-num">KB-009</span>
+      </div>
+      <h2 class="article-title">RightFax Registry Margins: <em>Conversion Fix</em></h2>
+      <p class="article-intro">When the RightFax Conversion Engine fails to start, one documented cause is bad registry margin values under the RightFax ISO conversion settings. The known issue is a margin value entered with a comma instead of a decimal point. Correcting the registry values and restarting the conversion service resolves the failure.</p>
+    </div>
 
-      <a href="kb-legacy-upgrade.html" class="kb-card reveal reveal-delay-2">
-        <div class="kb-card-cat">Upgrades</div>
-        <div class="kb-card-title">Legacy Server Upgrades: Staging Server Strategy</div>
-        <div class="kb-card-desc">Very old RightFax versions often cannot upgrade directly to modern releases. How to use intermediate staging servers to step through schema migrations safely.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+    <div class="symptom-box reveal">
+      <div class="symptom-box-label">Indicators</div>
+      <ul class="symptom-list">
+        <li>RightFax Conversion Engine will not start</li>
+        <li>Registry values appear malformed or use comma-separated decimals</li>
+        <li>The issue appears after a rebuild, patch, or migration</li>
+        <li>Conversion settings were copied from another system</li>
+      </ul>
+    </div>
 
-      <a href="kb-delta-migration.html" class="kb-card reveal reveal-delay-3">
-        <div class="kb-card-cat">Migration</div>
-        <div class="kb-card-title">Delta Fax Migration Without Duplicates</div>
-        <div class="kb-card-desc">Drag-and-drop fax moves create new records and duplicates. The correct approach uses the RightFax admin migration utility for controlled delta passes.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+    <div class="steps reveal">
+      <div class="steps-label">Resolution Steps</div>
 
-      <a href="kb-queue-backlog.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Operations</div>
-        <div class="kb-card-title">Fax Queue Backlogs: Diagnosis and Resolution</div>
-        <div class="kb-card-desc">Identifying the root cause of accumulating outbound queues, from channel exhaustion and stuck transmissions to Doc Transport and gateway connectivity failures.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+      <div class="step-item">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-title-text">Back Up the Registry First</div>
+          <div class="step-desc">Before making any registry change, back up the relevant keys or create a restore point. Incorrect registry edits can affect the Conversion Engine and other RightFax services. Treat this as a controlled change, not an ad hoc tweak.</div>
+        </div>
+      </div>
 
-    
-      <a href="kb-user-migration-autoforward.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Migration</div>
-        <div class="kb-card-title">User Migration Failing: Error -9330 Autoforward</div>
-        <div class="kb-card-desc">A stale alternate user reference in FaxUtil mailbox notification settings blocks migration with error -9330. Not visible in EFM. Resolution requires clearing the orphaned reference directly in FaxUtil.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+      <div class="step-item">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-title-text">Open the RightFax ISO Conversion Registry Path</div>
+          <div class="step-desc">Navigate to the RightFax ISO conversion settings under the registry path used by your environment. The documented path for the margin issue is:
+            <ul class="path-list">
+              <li>HKLM\SOFTWARE\Wow6432Node\RightFax\ISOConv\IE\IeConfig</li>
+            </ul>
+            Confirm you are editing the correct key on the server where conversion is failing, not a client workstation.</div>
+        </div>
+      </div>
 
-      <a href="kb-channels-not-coming-up.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Services</div>
-        <div class="kb-card-title">RightFax Channels Not Coming Up</div>
-        <div class="kb-card-desc">Re-save Brooktrout settings, apply the configuration, and restart Doc Transport when channels stay down after startup. A fast first fix before deeper troubleshooting.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+      <div class="step-item">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-title-text">Correct the Margin Values</div>
+          <div class="step-desc">Review the page margin values in the key and change them to use a decimal point format. The documented fix is to set all page margins to 0.75, not 0,75. If the values are zero, malformed, or otherwise inconsistent, replace them with valid decimal values that match your expected conversion behavior.</div>
+        </div>
+      </div>
 
-      <a href="kb-faxes-stuck-in-conversion.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Operations</div>
-        <div class="kb-card-title">Faxes Stuck in Conversion</div>
-        <div class="kb-card-desc">Shared-service path problems, missing file names, bad source documents, and printer path issues can all freeze conversion. Start with the configuration and the document in the queue.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+      <div class="step-item">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <div class="step-title-text">Restart the Conversion Engine</div>
+          <div class="step-desc">After updating the registry, restart the RightFax Conversion Engine so it reloads the corrected margin settings. If the service was refusing to start, the corrected values should clear the startup failure.</div>
+        </div>
+      </div>
 
-      <a href="kb-registry-margins.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Conversion</div>
-        <div class="kb-card-title">RightFax Registry Margins</div>
-        <div class="kb-card-desc">Conversion Engine failures can be caused by malformed registry margin values. Fix the ISOConv IeConfig path, correct the decimal format, and restart the service.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
+      <div class="step-item">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <div class="step-title-text">Validate With a Test Conversion</div>
+          <div class="step-desc">Run a test fax or conversion job and confirm the output renders with the expected margins. If the job still fails, recheck the registry path and confirm the values were saved correctly.</div>
+        </div>
+      </div>
 
-          <a href="kb-waiting-for-conversion.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Conversion</div>
-        <div class="kb-card-title">Waiting for Conversion</div>
-        <div class="kb-card-desc">Auto-printing blocked by a printer out of paper can stall the queue until the output path is restored.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
-      <a href="kb-fcs-conversion-fails.html" class="kb-card reveal reveal-delay-4">
-        <div class="kb-card-cat">Conversion</div>
-        <div class="kb-card-title">FCS Conversion Fails</div>
-        <div class="kb-card-desc">Wrong workserver printer drivers or missing PDF module can leave Word attachments stuck in In FCS conversion.</div>
-        <div class="kb-card-link">Read Article <span class="kb-card-link-arrow">&#x2192;</span></div>
-      </a>
-</div>
+    </div>
+
+    <div class="pro-tip reveal">
+      <div class="pro-tip-label">Field Note</div>
+      <div class="pro-tip-text">This issue tends to appear after server rebuilds or environment moves where configuration values were copied from another system. The decimal formatting problem is easy to miss because the values look plausible at a glance. If the Conversion Engine suddenly fails after a migration, registry formatting should be one of the first places to look.</div>
+    </div>
+
+    <div class="article-tags reveal">
+      <span class="tag">Conversion Engine</span>
+      <span class="tag">Registry</span>
+      <span class="tag">Margins</span>
+      <span class="tag">HKLM</span>
+      <span class="tag">Startup Failure</span>
+      <span class="tag">Output Formatting</span>
+      <span class="tag">Operations</span>
+      <span class="tag">Troubleshooting</span>
+    </div>
+
   </div>
 </section>
 <div class="cta-strip">
