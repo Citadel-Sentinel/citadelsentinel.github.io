@@ -1,33 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
-    <loc>https://citadelsentinel.ca/</loc>
+    <loc>https://www.citadelsentinel.ca/</loc>
     <priority>1.0</priority>
     <changefreq>monthly</changefreq>
   </url>
+
   <url>
-    <loc>https://citadelsentinel.ca/services.html</loc>
+    <loc>https://www.citadelsentinel.ca/services.html</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
   </url>
+
   <url>
-    <loc>https://citadelsentinel.ca/process.html</loc>
+    <loc>https://www.citadelsentinel.ca/rightfax-support.html</loc>
+    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.citadelsentinel.ca/process.html</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
+
   <url>
-    <loc>https://citadelsentinel.ca/case-studies.html</loc>
+    <loc>https://www.citadelsentinel.ca/case-studies.html</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
+
   <url>
-    <loc>https://citadelsentinel.ca/contact.html</loc>
+    <loc>https://www.citadelsentinel.ca/kb.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.citadelsentinel.ca/kb-av-exclusions.html</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
-<url>
-  <loc>https://www.citadelsentinel.ca/rightfax-support.html</loc>
-  <changefreq>monthly</changefreq>
-  <priority>0.9</priority>
-</url>
+
+  <url>
+    <loc>https://www.citadelsentinel.ca/kb-doc-transport.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.citadelsentinel.ca/kb-legacy-upgrade.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.citadelsentinel.ca/kb-delta-migration.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.citadelsentinel.ca/kb-queue-backlog.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.citadelsentinel.ca/contact.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
 </urlset>
