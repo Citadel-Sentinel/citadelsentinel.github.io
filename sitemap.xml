@@ -68,6 +68,12 @@
   </url>
 
   <url>
+    <loc>https://www.citadelsentinel.ca/kb-user-migration-autoforward.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
     <loc>https://www.citadelsentinel.ca/contact.html</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
