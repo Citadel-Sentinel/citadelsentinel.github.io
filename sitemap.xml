@@ -102,6 +102,10 @@
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
+  
+  <url>
+  <loc>https://www.citadelsentinel.ca/kb-fax-status-transmission-errors.html</loc>
+</url>
 
   <url>
     <loc>https://www.citadelsentinel.ca/contact.html</loc>
