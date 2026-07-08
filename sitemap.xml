@@ -20,6 +20,12 @@
   </url>
 
   <url>
+    <loc>https://www.citadelsentinel.ca/rightfax-lifecycle.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
     <loc>https://www.citadelsentinel.ca/process.html</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
@@ -102,10 +108,12 @@
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
-  
+
   <url>
-  <loc>https://www.citadelsentinel.ca/kb-fax-status-transmission-errors.html</loc>
-</url>
+    <loc>https://www.citadelsentinel.ca/kb-fax-status-transmission-errors.html</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
 
   <url>
     <loc>https://www.citadelsentinel.ca/contact.html</loc>
