@@ -44,6 +44,12 @@
   </url>
 
   <url>
+    <loc>https://www.citadelsentinel.ca/rightfax-health-check.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
     <loc>https://www.citadelsentinel.ca/kb-av-exclusions.html</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
