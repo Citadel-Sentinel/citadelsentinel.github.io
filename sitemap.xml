@@ -26,6 +26,18 @@
   </url>
 
   <url>
+    <loc>https://www.citadelsentinel.ca/legacy-fax-modernization.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://www.citadelsentinel.ca/rightfax-server-prerequisites.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
     <loc>https://www.citadelsentinel.ca/process.html</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
