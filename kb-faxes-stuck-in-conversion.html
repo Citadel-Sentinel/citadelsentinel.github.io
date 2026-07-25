@@ -10,6 +10,8 @@
   gtag('config', 'G-XELCN4YHCV');
 </script>
 <meta charset="UTF-8">
+<link rel="icon" type="image/jpeg" href="assets/logomini.jpeg">
+<link rel="apple-touch-icon" href="assets/logomini.jpeg">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RightFax Faxes Stuck in Conversion: Overview and Fix Paths | Citadel Sentinel</title>
 <meta name="description" content="Overview of RightFax fax conversion stalls, with links to the specific fixes for shared-service paths, Waiting for Conversion, registry margins, and FCS conversion failures.">
@@ -147,17 +149,9 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
 @media(max-width:600px){.kb-index{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr}.page-hero{padding:120px 0.75rem 50px !important}.section-h{font-size:clamp(1rem,4.2vw,1.6rem) !important;line-height:1.15;word-break:break-word}.article-title{font-size:clamp(1.1rem,4vw,1.5rem) !important}.step-item{grid-template-columns:38px 1fr;gap:1rem}.step-num{font-size:1.1rem}.nav-cta{width:auto !important;padding:10px 22px !important}}
 @media(max-width:380px){.section-h{font-size:clamp(0.75rem,3.6vw,1rem) !important}}
 
-.related-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:0.75rem}
-.related-links a{display:inline-flex;align-items:center;padding:8px 12px;border:1px solid var(--signal);background:rgba(34,211,238,0.10);color:var(--signal);text-decoration:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border-radius:2px;transition:all 0.2s}
-.related-links a:hover{background:var(--signal);color:var(--ink)}
 
 
-.related-callout{margin-top:1rem;padding:1.25rem 1.4rem;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.28);border-radius:4px}
-.related-callout .related-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--signal);margin-bottom:0.75rem}
-.related-callout .related-text{font-size:14px;color:var(--white-70);margin-bottom:0.9rem}
-.related-callout .related-links{display:flex;flex-wrap:wrap;gap:12px}
-.related-callout .related-links a{display:inline-flex;align-items:center;padding:10px 14px;background:var(--signal);color:var(--ink);text-decoration:none;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border-radius:2px;box-shadow:0 8px 24px rgba(34,211,238,0.18);transition:transform 0.2s,box-shadow 0.2s}
-.related-callout .related-links a:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(34,211,238,0.28)}
+
 
 
 .related-block{margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border-2)}
@@ -267,8 +261,8 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
     </div>
 
     <div class="pro-tip reveal">
-      <div class="pro-tip-label">Related Articles</div>
-      <div class="pro-tip-text">Start with the symptom, then jump to the specific fix: <a href="kb-registry-margins.html">Registry Margins</a>, <a href="kb-waiting-for-conversion.html">Waiting for Conversion</a>, and <a href="kb-fcs-conversion-fails.html">FCS Conversion Fails</a>. This keeps the KB organized and gives each article a clear search target.</div>
+      <div class="pro-tip-label">Field Note</div>
+      <div class="pro-tip-text">Most "stuck in conversion" tickets get misdiagnosed as a single recurring bug when they're actually five unrelated failure modes that happen to produce the same symptom in FaxUtil. Identify which branch applies before touching configuration &mdash; the fix for a stalled Shared Services queue is not the fix for a bad PDF module or a registry margin mismatch.</div>
     </div>
 
     <div class="article-tags reveal">
@@ -280,6 +274,7 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
       <span class="tag">Registry</span>
       <span class="tag">FCS Conversion</span>
     </div>
+
     <div class="related-block reveal">
       <div class="related-label">Related Articles</div>
       <div class="related-links">
