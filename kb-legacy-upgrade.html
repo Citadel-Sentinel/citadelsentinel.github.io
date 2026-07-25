@@ -14,8 +14,21 @@
 <title>RightFax Legacy Server Upgrades: Staging Server Strategy | Citadel Sentinel</title>
 <meta name="description" content="How to upgrade very old RightFax versions to modern releases using intermediate staging servers and sequential schema migrations without touching production.">
 <link rel="canonical" href="https://www.citadelsentinel.ca/kb-legacy-upgrade.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.citadelsentinel.ca/kb-legacy-upgrade.html">
+<meta property="og:title" content="RightFax Legacy Server Upgrades: Staging Server Strategy | Citadel Sentinel">
+<meta property="og:description" content="How to upgrade very old RightFax versions to modern releases using intermediate staging servers and sequential schema migrations without touching production.">
+<meta property="og:image" content="https://www.citadelsentinel.ca/assets/logomini.jpeg">
+<meta property="og:locale" content="en_CA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RightFax Legacy Server Upgrades: Staging Server Strategy | Citadel Sentinel">
+<meta name="twitter:description" content="How to upgrade very old RightFax versions to modern releases using intermediate staging servers and sequential schema migrations without touching production.">
+<meta name="twitter:image" content="https://www.citadelsentinel.ca/assets/logomini.jpeg">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Article","headline":"RightFax Legacy Server Upgrades: Staging Server Strategy","description":"How to upgrade very old RightFax versions to modern releases using intermediate staging servers and sequential schema migrations without touching production.","url":"https://www.citadelsentinel.ca/kb-legacy-upgrade.html","author":{"@type":"Organization","name":"Citadel Sentinel IT and Cybersecurity Solutions"},"publisher":{"@type":"Organization","name":"Citadel Sentinel"},"about":"OpenText RightFax"}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "HowTo", "name": "Legacy Server Upgrades: Staging Server Strategy", "description": "How to upgrade very old RightFax versions to modern releases using intermediate staging servers and sequential schema migrations without touching production.", "url": "https://www.citadelsentinel.ca/kb-legacy-upgrade.html", "step": [{"@type": "HowToStep", "name": "Determine the Required Upgrade Path", "text": "Consult the OpenText RightFax release notes and upgrade documentation for your target version. Each release specifies which source versions are supported for direct in-place upgrade. If your current version is not on the supported list, identify the nearest intermediate version that is. This becomes your first staging step. The upgrade matrix may require more than one intermediate hop depending on how old the source environment is."}, {"@type": "HowToStep", "name": "Build a Staging Server Matching the Intermediate Version", "text": "Stand up a separate staging server. This should not be production. Install the intermediate RightFax version on this server. The staging server does not need to be fully production-configured; its purpose is to perform the database schema migration. Ensure the SQL Server version on the staging host is compatible with both the intermediate and subsequent RightFax versions you will step through."}, {"@type": "HowToStep", "name": "Restore a Backup of the Production Database to Staging", "text": "Take a full backup of the production RightFax SQL database. Restore this backup to the staging server's SQL instance. This is your test data set. Do not perform schema migrations against the production database until all staging steps have been validated. Verify the restore is clean and that the intermediate RightFax installation can connect to the restored database before proceeding."}, {"@type": "HowToStep", "name": "Run the Schema Migration and Validate", "text": "Allow the intermediate version installer or upgrade process to migrate the database schema. After migration completes, validate that the staging RightFax instance starts correctly, that fax data and configuration are intact, and that no SQL errors appear in the RightFax logs. This validation step is critical. Schema migration failures in staging inform what remediation is needed before the process is repeated in production."}, {"@type": "HowToStep", "name": "Repeat for Each Remaining Upgrade Step", "text": "If the path requires additional intermediate versions before reaching your target release, repeat the process: upgrade the staging server to the next version, validate, then continue. Each step produces a validated schema state. Once staging has reached the target version and been fully validated, the same sequential process is executed in production during the planned maintenance window."}, {"@type": "HowToStep", "name": "Maintain Production Backups at Each Stage", "text": "When executing in production, take a full database backup before each upgrade step. This provides a rollback point at every schema version. In the event of a failure mid-path, restoration to the last known good schema state is possible without losing all migration progress."}]}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Citadel Sentinel IT & Cybersecurity Solutions Inc.","description":"Specialized IT infrastructure consulting firm. Experts in OpenText RightFax migrations, Azure infrastructure, and critical system reliability.","url":"https://www.citadelsentinel.ca","telephone":"+1-647-846-1035","email":"info@citadelsentinel.ca","address":{"@type":"PostalAddress","addressLocality":"Milton","addressRegion":"ON","addressCountry":"CA"},"areaServed":["Greater Toronto Area","Ontario","Canada"],"founder":{"@type":"Person","name":"Saboor Ali","jobTitle":"CCNP-Certified DevOps Engineer & Infrastructure Consultant"},"knowsAbout":["OpenText RightFax","Microsoft Azure","IT Infrastructure","Cybersecurity","DevOps"],"serviceType":["RightFax Migration","Azure Infrastructure Consulting","Emergency IT Support","Managed IT Retainer"]}
@@ -133,6 +146,12 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
 @media(max-width:960px){.kb-index{grid-template-columns:1fr 1fr}.footer-top{grid-template-columns:1fr 1fr}.nav-links{display:none}.hamburger{display:flex}}
 @media(max-width:600px){.kb-index{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr}.page-hero{padding:120px 0.75rem 50px !important}.section-h{font-size:clamp(1rem,4.2vw,1.6rem) !important;line-height:1.15;word-break:break-word}.article-title{font-size:clamp(1.1rem,4vw,1.5rem) !important}.step-item{grid-template-columns:38px 1fr;gap:1rem}.step-num{font-size:1.1rem}.nav-cta{width:auto !important;padding:10px 22px !important}}
 @media(max-width:380px){.section-h{font-size:clamp(0.75rem,3.6vw,1rem) !important}}
+
+.related-block{margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border-2)}
+.related-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--signal);margin-bottom:1rem}
+.related-links{display:flex;flex-direction:column;gap:10px}
+.related-links a{font-size:13.5px;color:var(--white-70);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px}
+.related-links a:hover{color:var(--signal)}
 </style>
 </head>
 <body>
@@ -255,6 +274,15 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
       <span class="tag">Staging</span>
       <span class="tag">Change Management</span>
     </div>
+    <div class="related-block reveal">
+      <div class="related-label">Related Articles</div>
+      <div class="related-links">
+        <a href="kb-delta-migration.html">Delta Fax Migration Without Duplicates &#x2192;</a>
+        <a href="kb-user-migration-autoforward.html">User Migration Failing: Error -9330 &#x2192;</a>
+        <a href="rightfax-server-prerequisites.html">System Requirements for Your Target Version &#x2192;</a>
+      </div>
+    </div>
+
 
   </div>
 </section>

@@ -14,8 +14,21 @@
 <title>Fax Status Transmission Errors | Citadel Sentinel IT & Cybersecurity Solutions</title>
 <meta name="description" content="How to identify and fix RightFax fax status transmission errors, including FaxUtil status codes, retry states, codec issues, T.38 behavior, and SBC-side failures.">
 <link rel="canonical" href="https://www.citadelsentinel.ca/kb-fax-status-transmission-errors.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.citadelsentinel.ca/kb-fax-status-transmission-errors.html">
+<meta property="og:title" content="Fax Status Transmission Errors | Citadel Sentinel IT & Cybersecurity Solutions">
+<meta property="og:description" content="How to identify and fix RightFax fax status transmission errors, including FaxUtil status codes, retry states, codec issues, T.38 behavior, and SBC-side failures.">
+<meta property="og:image" content="https://www.citadelsentinel.ca/assets/logomini.jpeg">
+<meta property="og:locale" content="en_CA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fax Status Transmission Errors | Citadel Sentinel IT & Cybersecurity Solutions">
+<meta name="twitter:description" content="How to identify and fix RightFax fax status transmission errors, including FaxUtil status codes, retry states, codec issues, T.38 behavior, and SBC-side failures.">
+<meta name="twitter:image" content="https://www.citadelsentinel.ca/assets/logomini.jpeg">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Article","headline":"RightFax Fax Status Transmission Errors","description":"How to identify and fix RightFax fax status transmission errors, including FaxUtil status codes, retry states, codec issues, T.38 behavior, and SBC-side failures.","url":"https://www.citadelsentinel.ca/kb-fax-status-transmission-errors.html","author":{"@type":"Organization","name":"Citadel Sentinel IT and Cybersecurity Solutions"},"publisher":{"@type":"Organization","name":"Citadel Sentinel"},"about":"OpenText RightFax"}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "HowTo", "name": "Fax Status Transmission Errors: Causes, Identification, and Fixes", "description": "How to identify and fix RightFax fax status transmission errors, including FaxUtil status codes, retry states, codec issues, T.38 behavior, and SBC-side failures.", "url": "https://www.citadelsentinel.ca/kb-fax-status-transmission-errors.html", "step": [{"@type": "HowToStep", "name": "Confirm the Destination and Reachability", "text": "Confirm the recipient fax number, country code, dialing prefix, and any dialing rules are correct. Call the number and listen for fax tone or confirm you have reached a fax-capable endpoint. If the number is answered by voice, an IVR, or a non-fax device, the transmission may fail even though the call connects."}, {"@type": "HowToStep", "name": "Read the RightFax Status and Retry State", "text": "Review the FaxUtil status code first, because it tells you whether the job is retrying or already dropped. Check retry state, Update Status, and Smart Resume when supported. Standard clues like no dial tone, communication line failure, and command timeout often separate line issues from remote-device issues."}, {"@type": "HowToStep", "name": "Compare Physical Fax Versus RightFax", "text": "If the same destination succeeds from a physical fax machine but fails from RightFax, compare the Brooktrout driver version, board configuration, and SIP media settings. That difference often points to codec negotiation, protocol handoff, or the fax board profile rather than the destination number itself. Outdated Brooktrout components can fail even when a stand-alone fax machine still succeeds on the same line or SIP path."}, {"@type": "HowToStep", "name": "Check Fax Speed, ECM, and Line Quality", "text": "Lower the fax speed if the line or VoIP path is marginal; 14.4k may fail while 9.6k or 4.8k succeeds. Temporarily disable ECM during troubleshooting if the provider or far-end device is sensitive to it. A fax transmission error does not mean the entire trunk is down; it may only mean the negotiation was too aggressive for the path."}, {"@type": "HowToStep", "name": "Review Codec and T.38 Behavior", "text": "In Brooktrout SR140 and similar SIP fax deployments, the RTP codec list and G.711 fallback behavior can determine whether a fax succeeds over IP. The practical concern is often whether the board is advertising PCMU, PCMA, or both, and whether the SBC or provider path handles that codec list cleanly. If T.38 negotiation is unreliable, G.711 fallback may keep the fax alive, but it should remain an uncompressed codec path."}, {"@type": "HowToStep", "name": "Escalate T.38 Re-INVITE Failures", "text": "If Wireshark shows a T.38 re-INVITE followed by disconnect, investigate the carrier or SBC as likely points of failure. A real-world pattern is that the number answers, the SIP session comes up, T.38 re-INVITE occurs, and the call drops during handoff. In those cases, the root cause is often the carrier or SBC media layer rather than the fax server itself."}, {"@type": "HowToStep", "name": "Verify Protocol and Codec Fallbacks", "text": "Review T.38, T.38 re-INVITE, and G.711 fallback behavior in SIP environments. Some environments become stable only after limiting the advertised codec list to a single codec rather than both. If the board advertises the wrong codec mix, or if the provider only behaves correctly with PCMU or PCMA specifically, the call may connect but fail during fax negotiation or T.38 switchover."}, {"@type": "HowToStep", "name": "Confirm the Response Pattern", "text": "Use the response pattern to narrow the issue. If all destinations fail, focus on service, transport, or provider configuration. If only one number fails, focus on the destination device, remote routing, or that number’s fax capability. If the pattern changes after lowering speed or changing codecs, the issue is likely in the media path rather than in RightFax document handling."}]}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Citadel Sentinel IT & Cybersecurity Solutions Inc.","description":"Specialized IT infrastructure consulting firm. Experts in OpenText RightFax migrations, Azure infrastructure, and critical system reliability.","url":"https://www.citadelsentinel.ca","telephone":"+1-647-846-1035","email":"info@citadelsentinel.ca","address":{"@type":"PostalAddress","addressLocality":"Milton","addressRegion":"ON","addressCountry":"CA"},"areaServed":["Greater Toronto Area","Ontario","Canada"],"founder":{"@type":"Person","name":"Saboor Ali","jobTitle":"CCNP-Certified DevOps Engineer & Infrastructure Consultant"},"knowsAbout":["OpenText RightFax","Microsoft Azure","IT Infrastructure","Cybersecurity","DevOps"],"serviceType":["RightFax Migration","Azure Infrastructure Consulting","Emergency IT Support","Managed IT Retainer"]}
@@ -53,6 +66,12 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
 @media (max-width:960px){.footer-top{grid-template-columns:1fr 1fr}.nav-links{display:none}.hamburger{display:flex}}
 @media (max-width:600px){.footer-top{grid-template-columns:1fr}.page-hero{padding:120px .75rem 50px !important}.section-h{font-size:clamp(1rem,4.2vw,1.6rem) !important;line-height:1.15;word-break:break-word}.article-title{font-size:clamp(1.1rem,4vw,1.5rem) !important}.step-item{grid-template-columns:38px 1fr;gap:1rem}.step-num{font-size:1.1rem}.nav-cta{width:auto !important;padding:10px 22px !important}}
 @media (max-width:380px){.section-h{font-size:clamp(.75rem,3.6vw,1rem) !important}}
+
+.related-block{margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border-2)}
+.related-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--signal);margin-bottom:1rem}
+.related-links{display:flex;flex-direction:column;gap:10px}
+.related-links a{font-size:13.5px;color:var(--white-70);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px}
+.related-links a:hover{color:var(--signal)}
 </style>
 </head>
 <body>
@@ -131,6 +150,14 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
     </div>
     <div class="pro-tip reveal"><div class="pro-tip-label">Field Note</div><div class="pro-tip-text">The goal is not to eliminate every transmission error, but to identify whether the failure pattern points to the destination, the remote fax device, the Brooktrout configuration, or the SIP/SBC path.</div></div>
     <div class="article-tags reveal"><span class="tag">Transmission</span><span class="tag">RightFax</span><span class="tag">Brooktrout</span><span class="tag">FaxUtil</span><span class="tag">T.38</span><span class="tag">PCMU</span><span class="tag">PCMA</span><span class="tag">ECM</span><span class="tag">SBC</span></div>
+    <div class="related-block reveal">
+      <div class="related-label">Related Articles</div>
+      <div class="related-links">
+        <a href="kb-queue-backlog.html">Outbound Fax Queue Backlog: Diagnosis and Resolution &#x2192;</a>
+        <a href="kb-doc-transport.html">Doc Transport Service Not Starting &#x2192;</a>
+      </div>
+    </div>
+
   </div>
 </section>
 <section class="cta-strip"><div class="cta-inner"><div><div class="cta-h">Still seeing <em>transmission errors?</em></div><div class="cta-p">Codec mismatches, T.38 negotiation, and SBC-side failures can all look identical in FaxUtil. We diagnose transmission failures at the protocol level, not just the status code.</div></div><div style="display:flex;gap:1rem;flex-wrap:wrap"><a href="contact.html" class="btn btn-signal">Start Engagement <span class="btn-arrow">→</span></a><a href="rightfax-health-check.html" class="btn btn-ghost">Free Health Check</a></div></div></section>

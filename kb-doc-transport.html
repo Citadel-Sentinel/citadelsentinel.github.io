@@ -14,8 +14,21 @@
 <title>RightFax Doc Transport Service Not Starting | Citadel Sentinel</title>
 <meta name="description" content="Diagnosing why the RightFax Doc Transport service fails to start, including the Brooktrout TCP/UDP protocol toggle, AV exclusions, firewall ports, and service account issues.">
 <link rel="canonical" href="https://www.citadelsentinel.ca/kb-doc-transport.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.citadelsentinel.ca/kb-doc-transport.html">
+<meta property="og:title" content="RightFax Doc Transport Service Not Starting | Citadel Sentinel">
+<meta property="og:description" content="Diagnosing why the RightFax Doc Transport service fails to start, including the Brooktrout TCP/UDP protocol toggle, AV exclusions, firewall ports, and service account issues.">
+<meta property="og:image" content="https://www.citadelsentinel.ca/assets/logomini.jpeg">
+<meta property="og:locale" content="en_CA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RightFax Doc Transport Service Not Starting | Citadel Sentinel">
+<meta name="twitter:description" content="Diagnosing why the RightFax Doc Transport service fails to start, including the Brooktrout TCP/UDP protocol toggle, AV exclusions, firewall ports, and service account issues.">
+<meta name="twitter:image" content="https://www.citadelsentinel.ca/assets/logomini.jpeg">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Article","headline":"RightFax Doc Transport Service Not Starting","description":"Diagnosing why the RightFax Doc Transport service fails to start, including the Brooktrout TCP/UDP protocol toggle, AV exclusions, firewall ports, and service account issues.","url":"https://www.citadelsentinel.ca/kb-doc-transport.html","author":{"@type":"Organization","name":"Citadel Sentinel IT and Cybersecurity Solutions"},"publisher":{"@type":"Organization","name":"Citadel Sentinel"},"about":"OpenText RightFax"}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "HowTo", "name": "Doc Transport Service Not Starting", "description": "Diagnosing why the RightFax Doc Transport service fails to start, including the Brooktrout TCP/UDP protocol toggle, AV exclusions, firewall ports, and service account issues.", "url": "https://www.citadelsentinel.ca/kb-doc-transport.html", "step": [{"@type": "HowToStep", "name": "Check the Brooktrout Configuration: TCP/UDP Protocol Toggle", "text": "This is the most commonly missed cause. In the Brooktrout SDK Configuration Utility, navigate to the SIP transport settings for the configured board. There are explicit toggles to enable TCP transport and enable UDP transport. If your SIP trunk uses TCP (common in enterprise SBC deployments) and TCP is set to disabled in the Brooktrout config, the service will not start. The same applies for UDP. Verify the correct protocol is enabled and matches your SIP infrastructure. This setting is distinct from Windows Firewall rules. The port can be open at the OS level and the service will still fail if the Brooktrout protocol toggle is off."}, {"@type": "HowToStep", "name": "Verify AV Exclusions Cover the Doc Transport and Brooktrout Components", "text": "Brooktrout driver files and the Doc Transport executable must be included in AV/EDR exclusions. If exclusions were applied post-installation, a quarantine event during an earlier startup attempt may have flagged components. Check the AV quarantine log and restore any flagged Brooktrout or RightFax Doc Transport files, then retry the service start."}, {"@type": "HowToStep", "name": "Confirm Firewall Ports Are Open", "text": "The Doc Transport requires network access to the SIP gateway or Session Border Controller. Required ports typically include: SIP signaling: UDP/TCP 5060 (or 5061 for TLS-SIP) RTP media: UDP 10000-20000 (range varies by Brooktrout configuration) Verify these ports are permitted outbound from the RightFax server in both Windows Firewall and any network-layer firewall between the server and the SBC."}, {"@type": "HowToStep", "name": "Verify the SIP Gateway Is Reachable", "text": "Confirm the RightFax server can reach the SIP gateway or SBC by IP and that the gateway is accepting registrations. A SIP trunk that has expired or a gateway that has been reconfigured (IP change, authentication change) will cause the Doc Transport to fail initialization. Test connectivity using a SIP test tool or by reviewing SBC logs for registration attempts from the RightFax server IP."}, {"@type": "HowToStep", "name": "Review RightFax Doc Transport and Brooktrout Logs", "text": "RightFax maintains detailed logs in the configured log directory. The Doc Transport log and Brooktrout log will contain the specific error at the point of service failure. Common entries include port binding failures, SIP registration rejections, license validation errors, and Brooktrout driver initialization codes. These logs are the fastest path to a definitive root cause when the checklist steps above have not resolved the issue."}, {"@type": "HowToStep", "name": "Check Service Account Permissions", "text": "The RightFax services run under a service account that must have appropriate local permissions on the server. If a password change has occurred on the service account, or if a group policy change has modified local rights (particularly \"Log on as a service\"), the Doc Transport will fail to start. Verify the service account credentials and local security policy assignments in the Windows Services configuration and Local Security Policy."}]}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Citadel Sentinel IT & Cybersecurity Solutions Inc.","description":"Specialized IT infrastructure consulting firm. Experts in OpenText RightFax migrations, Azure infrastructure, and critical system reliability.","url":"https://www.citadelsentinel.ca","telephone":"+1-647-846-1035","email":"info@citadelsentinel.ca","address":{"@type":"PostalAddress","addressLocality":"Milton","addressRegion":"ON","addressCountry":"CA"},"areaServed":["Greater Toronto Area","Ontario","Canada"],"founder":{"@type":"Person","name":"Saboor Ali","jobTitle":"CCNP-Certified DevOps Engineer & Infrastructure Consultant"},"knowsAbout":["OpenText RightFax","Microsoft Azure","IT Infrastructure","Cybersecurity","DevOps"],"serviceType":["RightFax Migration","Azure Infrastructure Consulting","Emergency IT Support","Managed IT Retainer"]}
@@ -133,6 +146,12 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
 @media(max-width:960px){.kb-index{grid-template-columns:1fr 1fr}.footer-top{grid-template-columns:1fr 1fr}.nav-links{display:none}.hamburger{display:flex}}
 @media(max-width:600px){.kb-index{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr}.page-hero{padding:120px 0.75rem 50px !important}.section-h{font-size:clamp(1rem,4.2vw,1.6rem) !important;line-height:1.15;word-break:break-word}.article-title{font-size:clamp(1.1rem,4vw,1.5rem) !important}.step-item{grid-template-columns:38px 1fr;gap:1rem}.step-num{font-size:1.1rem}.nav-cta{width:auto !important;padding:10px 22px !important}}
 @media(max-width:380px){.section-h{font-size:clamp(0.75rem,3.6vw,1rem) !important}}
+
+.related-block{margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border-2)}
+.related-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--signal);margin-bottom:1rem}
+.related-links{display:flex;flex-direction:column;gap:10px}
+.related-links a{font-size:13.5px;color:var(--white-70);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px}
+.related-links a:hover{color:var(--signal)}
 </style>
 </head>
 <body>
@@ -263,6 +282,14 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
       <span class="tag">SR140</span>
       <span class="tag">TCP/UDP</span>
     </div>
+    <div class="related-block reveal">
+      <div class="related-label">Related Articles</div>
+      <div class="related-links">
+        <a href="kb-channels-not-coming-up.html">RightFax Channels Not Coming Up &#x2192;</a>
+        <a href="kb-av-exclusions.html">AV and Security Exclusions Before Installation &#x2192;</a>
+      </div>
+    </div>
+
 
   </div>
 </section>

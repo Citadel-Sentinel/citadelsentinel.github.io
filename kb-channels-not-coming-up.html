@@ -14,8 +14,21 @@
 <title>RightFax Channels Not Coming Up: Brooktrout Configuration Fix | Citadel Sentinel</title>
 <meta name="description" content="How to fix RightFax channels that stay down by re-saving Brooktrout settings, applying the configuration, and restarting Doc Transport. Covers common misconfigurations including TCP/UDP, SIP gateway, and licensing.">
 <link rel="canonical" href="https://www.citadelsentinel.ca/kb-channels-not-coming-up.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.citadelsentinel.ca/kb-channels-not-coming-up.html">
+<meta property="og:title" content="RightFax Channels Not Coming Up: Brooktrout Configuration Fix | Citadel Sentinel">
+<meta property="og:description" content="How to fix RightFax channels that stay down by re-saving Brooktrout settings, applying the configuration, and restarting Doc Transport. Covers common misconfigurations including TCP/UDP, SIP gateway, and licensing.">
+<meta property="og:image" content="https://www.citadelsentinel.ca/assets/logomini.jpeg">
+<meta property="og:locale" content="en_CA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RightFax Channels Not Coming Up: Brooktrout Configuration Fix | Citadel Sentinel">
+<meta name="twitter:description" content="How to fix RightFax channels that stay down by re-saving Brooktrout settings, applying the configuration, and restarting Doc Transport. Covers common misconfigurations including TCP/UDP, SIP gateway, and licensing.">
+<meta name="twitter:image" content="https://www.citadelsentinel.ca/assets/logomini.jpeg">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Article","headline":"RightFax Channels Not Coming Up: Brooktrout Configuration Fix","description":"How to fix RightFax channels that stay down by re-saving Brooktrout settings, applying the configuration, and restarting Doc Transport. Covers common misconfigurations including TCP/UDP, SIP gateway, and licensing.","url":"https://www.citadelsentinel.ca/kb-channels-not-coming-up.html","author":{"@type":"Organization","name":"Citadel Sentinel IT and Cybersecurity Solutions"},"publisher":{"@type":"Organization","name":"Citadel Sentinel"},"about":"OpenText RightFax"}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "HowTo", "name": "RightFax Channels Not Coming Up: Brooktrout Configuration Fix", "description": "How to fix RightFax channels that stay down by re-saving Brooktrout settings, applying the configuration, and restarting Doc Transport. Covers common misconfigurations including TCP/UDP, SIP gateway, and licensing.", "url": "https://www.citadelsentinel.ca/kb-channels-not-coming-up.html", "step": [{"@type": "HowToStep", "name": "Open the Brooktrout Configuration Utility", "text": "Launch the Brooktrout configuration tool used for the fax board or virtual gateway. Review the active board profile and confirm the expected interface, protocol, and channel parameters are present. If the settings were imported from a prior server or copied during a migration, assume they may need to be re-applied before RightFax will recognize them correctly."}, {"@type": "HowToStep", "name": "Check and Correct Brooktrout Settings", "text": "Before re-saving, verify the actual settings match your environment. Common misconfigurations include: TCP/UDP protocol toggle disabled (see KB-002) SIP gateway IP or port mismatch Channel count exceeding licensed capacity Interface type set incorrectly (T1/E1 vs SIP) Correct any misconfigurations, then re-save and explicitly apply the settings. This refreshes the board configuration and clears cases where the service is still using stale values."}, {"@type": "HowToStep", "name": "Restart Doc Transport", "text": "After applying the Brooktrout settings, restart the RightFax Doc Transport service so it reloads the board configuration. If the channels were blocked by an initialization issue, they should come up during service startup. Watch the service status and the admin console to confirm the channels transition from down to available."}, {"@type": "HowToStep", "name": "Confirm Channel Status in RightFax", "text": "Once the service restarts, verify the channels are active in the RightFax admin console and that outbound faxing resumes. If only some channels come up, compare the working and non-working board settings for mismatches in protocol, interface, or licensing. That comparison usually reveals whether the issue is configuration drift or a broader board communication problem."}, {"@type": "HowToStep", "name": "Escalate if Channels Still Stay Down", "text": "If the channels still do not initialize after re-saving, applying, and restarting Doc Transport, move to packet-level and gateway-side troubleshooting. At that point the issue may be tied to SIP registration, gateway reachability, board licensing, or a deeper Brooktrout fault. But in many environments this simple configuration refresh is the fastest and most reliable first fix."}]}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Citadel Sentinel IT & Cybersecurity Solutions Inc.","description":"Specialized IT infrastructure consulting firm. Experts in OpenText RightFax migrations, Azure infrastructure, and critical system reliability.","url":"https://www.citadelsentinel.ca","telephone":"+1-647-846-1035","email":"info@citadelsentinel.ca","address":{"@type":"PostalAddress","addressLocality":"Milton","addressRegion":"ON","addressCountry":"CA"},"areaServed":["Greater Toronto Area","Ontario","Canada"],"founder":{"@type":"Person","name":"Saboor Ali","jobTitle":"CCNP-Certified DevOps Engineer & Infrastructure Consultant"},"knowsAbout":["OpenText RightFax","Microsoft Azure","IT Infrastructure","Cybersecurity","DevOps"],"serviceType":["RightFax Migration","Azure Infrastructure Consulting","Emergency IT Support","Managed IT Retainer"]}
@@ -133,6 +146,12 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
 @media(max-width:960px){.kb-index{grid-template-columns:1fr 1fr}.footer-top{grid-template-columns:1fr 1fr}.nav-links{display:none}.hamburger{display:flex}}
 @media(max-width:600px){.kb-index{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr}.page-hero{padding:120px 0.75rem 50px !important}.section-h{font-size:clamp(1rem,4.2vw,1.6rem) !important;line-height:1.15;word-break:break-word}.article-title{font-size:clamp(1.1rem,4vw,1.5rem) !important}.step-item{grid-template-columns:38px 1fr;gap:1rem}.step-num{font-size:1.1rem}.nav-cta{width:auto !important;padding:10px 22px !important}}
 @media(max-width:380px){.section-h{font-size:clamp(0.75rem,3.6vw,1rem) !important}}
+
+.related-block{margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border-2)}
+.related-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--signal);margin-bottom:1rem}
+.related-links{display:flex;flex-direction:column;gap:10px}
+.related-links a{font-size:13.5px;color:var(--white-70);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px}
+.related-links a:hover{color:var(--signal)}
 </style>
 </head>
 <body>
@@ -258,6 +277,14 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
       <span class="tag">Operations</span>
       <span class="tag">Troubleshooting</span>
     </div>
+    <div class="related-block reveal">
+      <div class="related-label">Related Articles</div>
+      <div class="related-links">
+        <a href="kb-doc-transport.html">Doc Transport Service Not Starting &#x2192;</a>
+        <a href="kb-av-exclusions.html">AV and Security Exclusions Before Installation &#x2192;</a>
+      </div>
+    </div>
+
 
   </div>
 </section>

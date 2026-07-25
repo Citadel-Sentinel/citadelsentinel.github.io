@@ -14,8 +14,21 @@
 <title>RightFax Delta Fax Migration Without Duplicates | Citadel Sentinel</title>
 <meta name="description" content="How to migrate fax history between RightFax servers without creating duplicate records. Covers the admin migration utility, bulk pre-migration, and delta pass at cutover for compliant fax data transfers.">
 <link rel="canonical" href="https://www.citadelsentinel.ca/kb-delta-migration.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.citadelsentinel.ca/kb-delta-migration.html">
+<meta property="og:title" content="RightFax Delta Fax Migration Without Duplicates | Citadel Sentinel">
+<meta property="og:description" content="How to migrate fax history between RightFax servers without creating duplicate records. Covers the admin migration utility, bulk pre-migration, and delta pass at cutover for compliant fax data transfers.">
+<meta property="og:image" content="https://www.citadelsentinel.ca/assets/logomini.jpeg">
+<meta property="og:locale" content="en_CA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RightFax Delta Fax Migration Without Duplicates | Citadel Sentinel">
+<meta name="twitter:description" content="How to migrate fax history between RightFax servers without creating duplicate records. Covers the admin migration utility, bulk pre-migration, and delta pass at cutover for compliant fax data transfers.">
+<meta name="twitter:image" content="https://www.citadelsentinel.ca/assets/logomini.jpeg">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Article","headline":"RightFax Delta Fax Migration Without Duplicates","description":"How to migrate fax history between RightFax servers without creating duplicate records. Covers the admin migration utility, bulk pre-migration, and delta pass at cutover for compliant fax data transfers.","url":"https://www.citadelsentinel.ca/kb-delta-migration.html","author":{"@type":"Organization","name":"Citadel Sentinel IT and Cybersecurity Solutions"},"publisher":{"@type":"Organization","name":"Citadel Sentinel"},"about":"OpenText RightFax"}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "HowTo", "name": "Delta Fax Migration Without Duplicates", "description": "How to migrate fax history between RightFax servers without creating duplicate records. Covers the admin migration utility, bulk pre-migration, and delta pass at cutover for compliant fax data transfers.", "url": "https://www.citadelsentinel.ca/kb-delta-migration.html", "step": [{"@type": "HowToStep", "name": "Use the RightFax Admin Migration Utility", "text": "RightFax includes admin-level utilities designed for server-to-server fax migration. Unlike the end-user client, these tools operate at the record level and are capable of identifying existing records in the destination to avoid duplication. Access these through the RightFax administration tools. The specific utility available will depend on your RightFax version. Consult OpenText documentation for the appropriate migration tool for your release."}, {"@type": "HowToStep", "name": "Perform the Initial Bulk Migration Before Cutover", "text": "Run the initial migration pass well in advance of the production cutover window. This moves the bulk of historical fax data to the destination server while the source system is still live. The source server continues to receive and send faxes during this period. The goal is to minimize the amount of data left to move in the final delta pass during the actual cutover."}, {"@type": "HowToStep", "name": "Run a Delta Pass at Cutover", "text": "At the start of the maintenance window, when the source server is taken offline or traffic is redirected, run a delta migration pass using the admin utility. This delta pass identifies faxes created or modified in the source since the last migration run and moves only those records, without duplicating records already present in the destination from the prior bulk pass. Validate record counts before and after to confirm the delta completed correctly."}, {"@type": "HowToStep", "name": "Validate Completeness in the Destination", "text": "After the delta pass, verify fax counts across mailboxes or folders in the destination match the source. Spot-check representative records for metadata accuracy including timestamps, sender and recipient information, and status. In regulated environments, document the validation steps taken as part of the migration record for audit purposes."}]}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Citadel Sentinel IT & Cybersecurity Solutions Inc.","description":"Specialized IT infrastructure consulting firm. Experts in OpenText RightFax migrations, Azure infrastructure, and critical system reliability.","url":"https://www.citadelsentinel.ca","telephone":"+1-647-846-1035","email":"info@citadelsentinel.ca","address":{"@type":"PostalAddress","addressLocality":"Milton","addressRegion":"ON","addressCountry":"CA"},"areaServed":["Greater Toronto Area","Ontario","Canada"],"founder":{"@type":"Person","name":"Saboor Ali","jobTitle":"CCNP-Certified DevOps Engineer & Infrastructure Consultant"},"knowsAbout":["OpenText RightFax","Microsoft Azure","IT Infrastructure","Cybersecurity","DevOps"],"serviceType":["RightFax Migration","Azure Infrastructure Consulting","Emergency IT Support","Managed IT Retainer"]}
@@ -133,6 +146,12 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
 @media(max-width:960px){.kb-index{grid-template-columns:1fr 1fr}.footer-top{grid-template-columns:1fr 1fr}.nav-links{display:none}.hamburger{display:flex}}
 @media(max-width:600px){.kb-index{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr}.page-hero{padding:120px 0.75rem 50px !important}.section-h{font-size:clamp(1rem,4.2vw,1.6rem) !important;line-height:1.15;word-break:break-word}.article-title{font-size:clamp(1.1rem,4vw,1.5rem) !important}.step-item{grid-template-columns:38px 1fr;gap:1rem}.step-num{font-size:1.1rem}.nav-cta{width:auto !important;padding:10px 22px !important}}
 @media(max-width:380px){.section-h{font-size:clamp(0.75rem,3.6vw,1rem) !important}}
+
+.related-block{margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border-2)}
+.related-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--signal);margin-bottom:1rem}
+.related-links{display:flex;flex-direction:column;gap:10px}
+.related-links a{font-size:13.5px;color:var(--white-70);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px}
+.related-links a:hover{color:var(--signal)}
 </style>
 </head>
 <body>
@@ -242,6 +261,14 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
       <span class="tag">Data Integrity</span>
       <span class="tag">RightFax Server Migration</span>
     </div>
+    <div class="related-block reveal">
+      <div class="related-label">Related Articles</div>
+      <div class="related-links">
+        <a href="kb-legacy-upgrade.html">Legacy Server Upgrades: Staging Server Strategy &#x2192;</a>
+        <a href="kb-user-migration-autoforward.html">User Migration Failing: Error -9330 &#x2192;</a>
+      </div>
+    </div>
+
 
   </div>
 </section>

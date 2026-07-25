@@ -14,8 +14,21 @@
 <title>RightFax Faxes Stuck in Conversion: Overview and Fix Paths | Citadel Sentinel</title>
 <meta name="description" content="Overview of RightFax fax conversion stalls, with links to the specific fixes for shared-service paths, Waiting for Conversion, registry margins, and FCS conversion failures.">
 <link rel="canonical" href="https://www.citadelsentinel.ca/kb-faxes-stuck-in-conversion.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.citadelsentinel.ca/kb-faxes-stuck-in-conversion.html">
+<meta property="og:title" content="RightFax Faxes Stuck in Conversion: Overview and Fix Paths | Citadel Sentinel">
+<meta property="og:description" content="Overview of RightFax fax conversion stalls, with links to the specific fixes for shared-service paths, Waiting for Conversion, registry margins, and FCS conversion failures.">
+<meta property="og:image" content="https://www.citadelsentinel.ca/assets/logomini.jpeg">
+<meta property="og:locale" content="en_CA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RightFax Faxes Stuck in Conversion: Overview and Fix Paths | Citadel Sentinel">
+<meta name="twitter:description" content="Overview of RightFax fax conversion stalls, with links to the specific fixes for shared-service paths, Waiting for Conversion, registry margins, and FCS conversion failures.">
+<meta name="twitter:image" content="https://www.citadelsentinel.ca/assets/logomini.jpeg">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Article","headline":"RightFax Faxes Stuck in Conversion: Overview and Fix Paths","description":"Overview of RightFax fax conversion stalls, with links to the specific fixes for shared-service paths, Waiting for Conversion, registry margins, and FCS conversion failures.","url":"https://www.citadelsentinel.ca/kb-faxes-stuck-in-conversion.html","author":{"@type":"Organization","name":"Citadel Sentinel IT and Cybersecurity Solutions"},"publisher":{"@type":"Organization","name":"Citadel Sentinel"},"about":"OpenText RightFax"}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "HowTo", "name": "Faxes Stuck in Conversion: Overview and Fix Paths", "description": "Overview of RightFax fax conversion stalls, with links to the specific fixes for shared-service paths, Waiting for Conversion, registry margins, and FCS conversion failures.", "url": "https://www.citadelsentinel.ca/kb-faxes-stuck-in-conversion.html", "step": [{"@type": "HowToStep", "name": "If the issue is path or file based", "text": "Check the shared-service configuration first. If the path, file name, or service account access is wrong, the queue can appear stalled even though the engine is running. This is the right branch when the problem started after a migration or server rebuild."}, {"@type": "HowToStep", "name": "If one bad document blocks the queue", "text": "A single large or malformed document can hold up everything behind it. Remove or resubmit the suspect item in a simpler format and see whether conversion resumes."}, {"@type": "HowToStep", "name": "If the printer or output path is blocked", "text": "Use the Waiting for Conversion article when the queue is tied to an output printer problem, including the documented case where the printer is out of paper."}, {"@type": "HowToStep", "name": "If the conversion engine itself will not start", "text": "Use the registry margins article when the failure is a conversion engine startup problem caused by malformed registry margin values."}, {"@type": "HowToStep", "name": "If Word attachments fail in FCS conversion", "text": "Use the FCS conversion article when Microsoft Word attachments remain in In FCS conversion and the cause is the workserver printer driver or PDF module setup."}]}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"Citadel Sentinel IT & Cybersecurity Solutions Inc.","description":"Specialized IT infrastructure consulting firm. Experts in OpenText RightFax migrations, Azure infrastructure, and critical system reliability.","url":"https://www.citadelsentinel.ca","telephone":"+1-647-846-1035","email":"info@citadelsentinel.ca","address":{"@type":"PostalAddress","addressLocality":"Milton","addressRegion":"ON","addressCountry":"CA"},"areaServed":["Greater Toronto Area","Ontario","Canada"],"founder":{"@type":"Person","name":"Saboor Ali","jobTitle":"CCNP-Certified DevOps Engineer & Infrastructure Consultant"},"knowsAbout":["OpenText RightFax","Microsoft Azure","IT Infrastructure","Cybersecurity","DevOps"],"serviceType":["RightFax Migration","Azure Infrastructure Consulting","Emergency IT Support","Managed IT Retainer"]}
@@ -146,6 +159,12 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
 .related-callout .related-links a{display:inline-flex;align-items:center;padding:10px 14px;background:var(--signal);color:var(--ink);text-decoration:none;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border-radius:2px;box-shadow:0 8px 24px rgba(34,211,238,0.18);transition:transform 0.2s,box-shadow 0.2s}
 .related-callout .related-links a:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(34,211,238,0.28)}
 
+
+.related-block{margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border-2)}
+.related-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--signal);margin-bottom:1rem}
+.related-links{display:flex;flex-direction:column;gap:10px}
+.related-links a{font-size:13.5px;color:var(--white-70);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px}
+.related-links a:hover{color:var(--signal)}
 </style>
 </head>
 <body>
@@ -261,6 +280,15 @@ footer{background:var(--ink-3);border-top:1px solid var(--border-2);padding:4rem
       <span class="tag">Registry</span>
       <span class="tag">FCS Conversion</span>
     </div>
+    <div class="related-block reveal">
+      <div class="related-label">Related Articles</div>
+      <div class="related-links">
+        <a href="kb-registry-margins.html">RightFax Registry Margins &#x2192;</a>
+        <a href="kb-waiting-for-conversion.html">Waiting for Conversion &#x2192;</a>
+        <a href="kb-fcs-conversion-fails.html">FCS Conversion Fails &#x2192;</a>
+      </div>
+    </div>
+
 
   </div>
 </section>
